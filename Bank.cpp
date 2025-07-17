@@ -111,3 +111,22 @@ Account* Bank::findAccountByCardNumber(const string& cardNumber) {
     }
     return nullptr; 
 }
+
+void Bank::showAdminMenu(Admin* admin) {
+    cout << "\n--- Admin Menu (" << admin->getUsername() << ") ---" << endl;
+    cout << "1. View All Users" << endl;
+    cout << "9. Logout" << endl;
+    cout << "Enter your choice: ";
+    int choice;
+    cin >> choice;
+    switch (choice) {
+        case 1:
+            admin->viewAllUsers(users);
+            break;
+        case 9:
+            handleLogout();
+            break;
+        default:
+            cout << "Invalid choice." << endl;
+    }
+}
