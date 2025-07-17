@@ -3,7 +3,8 @@
 #include "Customer.h"
 #include "SavingsAccount.h"
 #include "CurrentAccount.h"
-#include "LoanAccount.h"  
+#include "LoanAccount.h"
+#include "Account.h"
 #include <iostream>
 #include <limits>
 #include <ctime>          
@@ -120,6 +121,7 @@ Account* Bank::findAccountByCardNumber(const string& cardNumber) {
 void Bank::showAdminMenu(Admin* admin) {
     cout << "\n--- Admin Menu (" << admin->getUsername() << ") ---" << endl;
     cout << "1. View All Users" << endl;
+    cout << "2. Create New User" << endl;
     cout << "9. Logout" << endl;
     cout << "Enter your choice: ";
     int choice;
@@ -127,6 +129,9 @@ void Bank::showAdminMenu(Admin* admin) {
     switch (choice) {
         case 1:
             admin->viewAllUsers(users);
+            break;
+        case 2:
+            adminCreateUser(admin);
             break;
         case 9:
             handleLogout();
@@ -280,4 +285,155 @@ void Bank::changeAccountPassword(Customer* customer) {
     } else {
         cout << "Incorrect PIN." << endl;
     }
+}
+
+void Bank::adminCreateUser(Admin* admin) {
+    string firstName, lastName, nationalId, username, password;
+    int age, userType;
+    
+    cout << "\n--- Create New User ---" << endl;
+    cout << "Enter first name: ";
+    cin >> firstName;
+    cout << "Enter last name: ";
+    cin >> lastName;
+    cout << "Enter national ID: ";
+    cin >> nationalId;
+    cout << "Enter age: ";
+    cin >> age;
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+    
+    // Check if username already exists
+    if (findUserByUsername(username) != nullptr) {
+        cout << "Error: Username already exists. Please choose a different username." << endl;
+        return;
+    }
+    
+    cout << "\nSelect user type:" << endl;
+    cout << "1. Customer" << endl;
+    cout << "2. Admin" << endl;
+    cout << "Enter choice: ";
+    cin >> userType;
+    
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. User creation cancelled." << endl;
+        return;
+    }
+    
+    User* newUser = nullptr;
+    
+    switch (userType) {
+        case 1: {
+            newUser = new Customer(firstName, lastName, nationalId, age, username, password);
+            cout << "Customer created successfully!" << endl;
+            break;
+        }
+        case 2: {
+            newUser = new Admin(firstName, lastName, nationalId, age, username, password);
+            cout << "Admin created successfully!" << endl;
+            break;
+        }
+        default:
+            cout << "Invalid user type. User creation cancelled." << endl;
+            return;
+    }
+    
+    if (newUser) {
+        users.add(newUser);
+        cout << "User '" << username << "' has been added to the system." << endl;
+        
+        // If it's a customer, ask if admin wants to create an account
+        if (userType == 1) {
+            cout << "\nWould you like to create a bank account for this customer? (y/n): ";
+            char createAccount;
+            cin >> createAccount;
+            if (createAccount == 'y' || createAccount == 'Y') {
+                adminCreateAccountForCustomer(static_cast<Customer*>(newUser));
+            }
+        }
+    }
+}
+
+void Bank::adminCreateAccountForCustomer(Customer* customer) {
+    string accountNumber, cardNumber, sheba, pin1, pin2;
+    int accountType;
+    double initialBalance = 0.0;
+    
+    cout << "\n--- Create Bank Account ---" << endl;
+    cout << "Enter account number: ";
+    cin >> accountNumber;
+    cout << "Enter card number: ";
+    cin >> cardNumber;
+    cout << "Enter SHEBA number: ";
+    cin >> sheba;
+    cout << "Enter PIN1 (4 digits): ";
+    cin >> pin1;
+    cout << "Enter static PIN2: ";
+    cin >> pin2;
+    cout << "Enter initial balance: ";
+    cin >> initialBalance;
+    
+    cout << "\nSelect account type:" << endl;
+    cout << "1. Savings Account" << endl;
+    cout << "2. Current Account" << endl;
+    cout << "3. Loan Account (Qard-ul-Hasana)" << endl;
+    cout << "Enter choice: ";
+    cin >> accountType;
+    
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Invalid input. Account creation cancelled." << endl;
+        return;
+    }
+    
+    Account* newAccount = nullptr;
+    
+    switch (accountType) {
+        case 1: {
+            double interestRate;
+            cout << "Enter interest rate (e.g., 1.5 for 1.5%): ";
+            cin >> interestRate;
+            newAccount = new SavingsAccount(accountNumber, cardNumber, sheba, pin1, pin2, interestRate);
+            break;
+        }
+        case 2: {
+            newAccount = new CurrentAccount(accountNumber, cardNumber, sheba, pin1, pin2);
+            break;
+        }
+        case 3: {
+            newAccount = new LoanAccount(accountNumber, cardNumber, sheba, pin1, pin2);
+            break;
+        }
+        default:
+            cout << "Invalid account type. Account creation cancelled." << endl;
+            return;
+    }
+    
+    if (newAccount) {
+        newAccount->deposit(initialBalance);
+        customer->addAccount(newAccount);
+        cout << "Account created successfully for customer: " << customer->getFullName() << endl;
+        cout << "Account Number: " << accountNumber << endl;
+        cout << "Card Number: " << cardNumber << endl;
+        cout << "Initial Balance: " << initialBalance << " Toman" << endl;
+    }
+}
+
+void Bank::clearScreen() {
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
+}
+
+void Bank::pauseScreen() {
+    cout << "\nPress Enter to continue...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
 }

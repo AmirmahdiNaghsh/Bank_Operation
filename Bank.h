@@ -1,3 +1,4 @@
+#ifndef BANK_H
 #define BANK_H
 
 #include "LinkedList.h"
@@ -31,4 +32,10 @@ private:
     void changeAccountPassword(Customer* customer);
     void viewCustomerAccounts(Customer* customer);
     void setupInitialData();
+    void adminCreateUser(Admin* admin);
+    void adminCreateAccountForCustomer(Customer* customer);
+    void clearScreen();
+    void pauseScreen();
 };
+
+#endif // BANK_H

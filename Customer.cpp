@@ -34,17 +34,6 @@ void Customer::addAccount(Account* newAccount) {
     }
 }
 
-void Customer::displayInfo() const {
-    User::displayInfo();
-    
-    cout << "--- Bank Accounts ---" << endl;
-    if (bankAccounts.getCount() == 0) {
-        cout << "This customer has no bank accounts." << endl;
-    } else {
-        bankAccounts.display();
-    }
-}
-
 Account* Customer::findAccountByCardNumber(const string& cardNumber) {
     return bankAccounts.find([&](Account* acc) {
         return acc->getCardNumber() == cardNumber;

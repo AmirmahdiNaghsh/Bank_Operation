@@ -18,7 +18,7 @@ public:
     
     ~Customer();
     void addAccount(Account* newAccount);
-    void displayInfo() const override;
+    void displayInfo() const;
     Account* findAccountByCardNumber(const string& cardNumber);
     LinkedList<Account*>& getAccounts();
 };
