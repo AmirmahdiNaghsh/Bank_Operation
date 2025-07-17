@@ -11,11 +11,15 @@ private:
         Node* next;
 
         Node(T val) : data(val), next(nullptr) {}
+        Node* getNext() const { return next; }
+        T getData() const { return data; }
     };
 
     Node* head; 
     int count; 
 public:
+    Node* getHead() const { return head; }
+
     LinkedList() : head(nullptr), count(0) {}
 
     ~LinkedList() {
