@@ -40,3 +40,9 @@ public:
         }
         count++; 
     }
+        int getCount() const {
+        return count;
+    }
+};
+
+#endif 
