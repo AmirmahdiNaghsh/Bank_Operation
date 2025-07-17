@@ -1,6 +1,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-
+#include <functional> 
 #include <iostream>
 template <typename T>
 class LinkedList {
@@ -56,6 +56,16 @@ public:
             cout << endl;
             current = current->next;
         }
+    }
+        T find(function<bool(T)> predicate) const {
+        Node* current = head;
+        while (current != nullptr) {
+            if (predicate(current->data)) {
+                return current->data;
+            }
+            current = current->next;
+        }
+                return nullptr;
     }
 };
 
