@@ -93,3 +93,8 @@ void Bank::handleLogout() {
     cout << "Logging out " << currentUser->getFullName() << "..." << endl;
     currentUser = nullptr;
 }
+
+User* Bank::findUserByUsername(const string& username) {
+    return users.find([&](User* u){ return u->getUsername() == username; });
+}
+
