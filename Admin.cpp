@@ -8,3 +8,7 @@
 #include <iostream>
 
 using namespace std;
+
+Admin::Admin(const string& fname, const string& lname, const string& natId, int userAge, const string& uname, const string& pass)
+    : User(fname, lname, natId, userAge, uname, pass) {}
+
