@@ -40,3 +40,20 @@ bool Account::isExpired() const{
         this->pin2_dynamic = newDynamicPin; 
     } 
 }
+
+void Account::deposit(double amount){
+    if (amount > 0)
+    {
+        balance += amount;
+    }
+}
+
+void Account::withdraw(double amount){
+    if (amount > 0 && balance>= amount)
+    {
+        balance -= amount;
+        return true;
+    }
+    return false;
+    
+}
