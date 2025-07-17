@@ -43,6 +43,20 @@ public:
         int getCount() const {
         return count;
     }
+        void display() const {
+        if (head == nullptr) {
+            cout << "List is Empty." << endl;
+            return;
+        }
+                Node* current = head;
+        int itemNumber = 1;
+        while (current != nullptr) {
+            cout << "--- Item Number " << itemNumber++ << " ---" << endl;
+            current->data->displayInfo(); 
+            cout << endl;
+            current = current->next;
+        }
+    }
 };
 
 #endif 
