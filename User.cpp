@@ -8,3 +8,7 @@ User::User(const string& fname, const string& lname, const string& natID, int us
 
 User::~User() {
 }
+
+string User::getUsername() const {
+    return username;
+}
