@@ -1,4 +1,3 @@
-#ifdef BANK_H
 #define BANK_H
 
 #include "LinkedList.h"
@@ -33,5 +32,3 @@ private:
     void viewCustomerAccounts(Customer* customer);
     void setupInitialData();
 };
-
-#endif 

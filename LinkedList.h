@@ -1,11 +1,15 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-#include <functional> //from Gpt
+
 #include <iostream>
+#include <functional>
+
+
+using namespace std;
+
 template <typename T>
 class LinkedList {
 private:
-    
     struct Node {
         T data;
         Node* next;
@@ -17,6 +21,7 @@ private:
 
     Node* head; 
     int count; 
+
 public:
     Node* getHead() const { return head; }
 
@@ -31,7 +36,7 @@ public:
         }
     }
 
-        void add(T item) {
+    void add(T item) {
         Node* newNode = new Node(item);
         if (head == nullptr) {
             head = newNode;
@@ -44,15 +49,17 @@ public:
         }
         count++; 
     }
-        int getCount() const {
+
+    int getCount() const {
         return count;
     }
-        void display() const {
+
+    void display() const {
         if (head == nullptr) {
             cout << "List is Empty." << endl;
             return;
         }
-                Node* current = head;
+        Node* current = head;
         int itemNumber = 1;
         while (current != nullptr) {
             cout << "--- Item Number " << itemNumber++ << " ---" << endl;
@@ -61,7 +68,8 @@ public:
             current = current->next;
         }
     }
-        T find(function<bool(T)> predicate) const {
+
+    T find(function<bool(T)> predicate) const {
         Node* current = head;
         while (current != nullptr) {
             if (predicate(current->data)) {
@@ -69,8 +77,9 @@ public:
             }
             current = current->next;
         }
-                return nullptr;
+        return nullptr;
     }
+    
     bool remove(function<bool(T)> predicate) {
         if (head == nullptr) {
             return false; 
@@ -100,4 +109,4 @@ public:
     }
 };
 
-#endif 
+#endif
