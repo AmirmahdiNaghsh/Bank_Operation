@@ -1,10 +1,14 @@
 #include "Bank.h"
 #include "Admin.h"
 #include "Customer.h"
-#include "SavingAccount.h"
+#include "SavingsAccount.h"
 #include "CurrentAccount.h"
+#include "LoanAccount.h"  
 #include <iostream>
 #include <limits>
+#include <ctime>          
+#include <string>         
+#include <cstdlib>        
 
 using namespace std;
 
@@ -12,6 +16,7 @@ Bank::Bank() : currentUser(nullptr) {
     srand(time(NULL));
     cout << "Welcome to the Bank Management System!" << endl;
 }
+
 Bank::~Bank() {
     auto* currentNode = users.getHead();
     while (currentNode != nullptr) {
@@ -25,13 +30,13 @@ void Bank::setupInitialData() {
     Admin* admin1 = new Admin("admin", "admin", "0000000000", 30, "admin", "123");
     users.add(admin1);
 
-       Customer* customer1 = new Customer("ali", "alavi", "1111111111", 25, "ali", "123");
+    Customer* customer1 = new Customer("ali", "alavi", "1111111111", 25, "ali", "123");
     Account* account1 = new SavingsAccount("1111", "6037", "IR1111", "1111", "1111", 1.5);
     account1->deposit(5000000);
     customer1->addAccount(account1);
     users.add(customer1);
 
-        Customer* customer2 = new Customer("sara", "saraei", "2222222222", 35, "sara", "123");
+    Customer* customer2 = new Customer("sara", "saraei", "2222222222", 35, "sara", "123");
     Account* account2 = new CurrentAccount("2222", "6219", "IR2222", "2222", "2222");
     account2->deposit(10000000);
     customer2->addAccount(account2);
@@ -42,7 +47,7 @@ void Bank::setupInitialData() {
 
 void Bank::run() {
     setupInitialData();
-    int choice;
+    int choice = 0;
     do {
         if (currentUser == nullptr) {
             showMainMenu();
@@ -62,7 +67,7 @@ void Bank::run() {
                 showCustomerMenu(customer);
             }
         }
-    } while (choice != 2);
+    } while (choice != 2 || currentUser != nullptr); 
     cout << "Exiting the program. Goodbye!" << endl;
 }
 
@@ -161,6 +166,91 @@ void Bank::showCustomerMenu(Customer* customer) {
             break;
         default:
             cout << "Invalid choice." << endl;
+    }
+}
+
+void Bank::performCardToCard(Customer* customer) {
+    string sourceCard, destCard, pin1, pin2;
+    double amount;
+
+    cout << "Enter your card number (source): ";
+    cin >> sourceCard;
+    cout << "Enter destination card number: ";
+    cin >> destCard;
+    cout << "Enter amount to transfer: ";
+    cin >> amount;
+
+    Account* sourceAccount = customer->findAccountByCardNumber(sourceCard);
+    if (!sourceAccount) {
+        cout << "Error: Source card not found or does not belong to you." << endl;
+        return;
+    }
+
+    Account* destAccount = this->findAccountByCardNumber(destCard);
+    if (!destAccount) {
+        cout << "Error: Destination card not found." << endl;
+        return;
+    }
+
+    if (sourceAccount->isExpired()) {
+        cout << "Error: Your card has expired." << endl;
+        return;
+    }
+
+    if (amount <= 0) {
+        cout << "Error: Invalid transfer amount." << endl;
+        return;
+    }
+
+    if (amount > 3000000) {
+        cout << "Error: Transaction limit is 3,000,000 Toman." << endl;
+        return;
+    }
+    
+    if (sourceAccount->getBalance() < amount) {
+        cout << "Error: Insufficient balance." << endl;
+        return;
+    }
+    
+    cout << "Enter your PIN1: ";
+    cin >> pin1;
+    if (!sourceAccount->checkPin1(pin1)) {
+        cout << "Error: Incorrect PIN1." << endl;
+        return;
+    }
+
+    if (amount > 100000) {
+        string dynamicPin = to_string(100000 + rand() % 900000);
+        sourceAccount->setDynamicPin(dynamicPin);
+        cout << "A one-time password has been generated: " << dynamicPin << endl;
+        cout << "Please enter the dynamic password: ";
+        cin >> pin2;
+        if (!sourceAccount->checkPin2Dynamic(pin2)) {
+            cout << "Error: Incorrect dynamic password." << endl;
+            sourceAccount->setDynamicPin("");
+            return;
+        }
+    } else {
+        cout << "Enter your static PIN2: ";
+        cin >> pin2;
+        if (!sourceAccount->checkPin2Static(pin2)) {
+            cout << "Error: Incorrect static PIN2." << endl;
+            return;
+        }
+    }
+    
+    double fee = amount * 0.0001;
+    double finalAmount = amount - fee;
+
+    if (sourceAccount->withdraw(amount)) {
+        destAccount->deposit(finalAmount);
+        sourceAccount->setDynamicPin("");
+        cout << "\nTransfer successful!" << endl;
+        cout << "Amount transferred: " << finalAmount << " Toman" << endl;
+        cout << "Fee: " << fee << " Toman" << endl;
+        cout << "Your new balance: " << sourceAccount->getBalance() << " Toman" << endl;
+    } else {
+        cout << "An unexpected error occurred during withdrawal." << endl;
     }
 }
 
