@@ -12,3 +12,11 @@ Bank::Bank() : currentUser(nullptr) {
     srand(time(NULL));
     cout << "Welcome to the Bank Management System!" << endl;
 }
+Bank::~Bank() {
+    auto* currentNode = users.getHead();
+    while (currentNode != nullptr) {
+        delete currentNode->getData();
+        currentNode = currentNode->getNext();
+    }
+    cout << "Bank system shut down. All data cleared." << endl;
+}
