@@ -164,3 +164,7 @@ void Bank::showCustomerMenu(Customer* customer) {
     }
 }
 
+void Bank::viewCustomerAccounts(Customer* customer) {
+    cout << "\n--- Your Bank Accounts ---" << endl;
+    customer->getAccounts().display();
+}
