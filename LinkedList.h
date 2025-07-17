@@ -1,6 +1,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-#include <functional> 
+#include <functional> //from Gpt
 #include <iostream>
 template <typename T>
 class LinkedList {
@@ -66,6 +66,33 @@ public:
             current = current->next;
         }
                 return nullptr;
+    }
+    bool remove(function<bool(T)> predicate) {
+        if (head == nullptr) {
+            return false; 
+        }
+
+        if (predicate(head->data)) {
+            Node* tempNode = head;
+            head = head->next; 
+            delete tempNode;  
+            count--;
+            return true;
+        }
+
+        Node* current = head;
+        while (current->next != nullptr) {
+            if (predicate(current->next->data)) {
+                Node* nodeToDelete = current->next;
+                current->next = nodeToDelete->next;
+                delete nodeToDelete; 
+                count--;
+                return true;
+            }
+            current = current->next;
+        }
+
+        return false;
     }
 };
 
