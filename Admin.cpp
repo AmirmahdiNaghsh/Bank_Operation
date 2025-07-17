@@ -38,3 +38,16 @@ bool Admin::removeCustomer(LinkedList<User*>& users, const string username){
     }
     
 }
+
+if (dynamic_cast<Customer*>(userToRemove))
+{
+    users.remove([&](User* u){return u->getUsername() == username;});
+
+    delete userToRemove;
+    cout<< "customer " << username << " removed Successfully." << endl;
+    return true;
+}else{
+    cout<< "Error: Admins cannot be removed." << endl;
+    return false;
+}
+
