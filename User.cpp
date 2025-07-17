@@ -12,3 +12,11 @@ User::~User() {
 string User::getUsername() const {
     return username;
 }
+
+string User::getFullName() const {
+    return firstName + " " + lastName;
+}
+
+string User:: getNatioalID() const{
+    return nationalID;
+}
