@@ -1,4 +1,4 @@
-#ifndef USER_H
+#ifdef USER_H
 #define USER_H
 using namespace std;
 #include <string>
@@ -25,3 +25,8 @@ public:
     bool checkPassword(const string& pass) const;
 
     virtual void changeInfo(const std::string& newFirstName, const std::string& newLastName, int newAge);
+
+    virtual void displayInfo() const;
+
+};
+#endif
