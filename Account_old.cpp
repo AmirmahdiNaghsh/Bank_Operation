@@ -224,3 +224,43 @@ string Account::generateDynamicPassword() {
 void Account::clearDynamicPassword() {
     dynamicSecondPassword = "";
 }
+
+bool Account::withdraw(double amount) {
+    if (amount > 0 && balance >= amount) {
+        balance -= amount;
+        return true;
+    }
+    return false;
+}
+
+bool Account::checkPin1(const string& p) const {
+    return pin1 == p;
+}
+
+bool Account::checkPin2Static(const string& p) const {
+    return pin2_static == p;
+}
+
+bool Account::checkPin2Dynamic(const string& p) const {
+    if (!pin2_dynamic.empty() && pin2_dynamic == p) {
+        return true;
+    }
+    return false;
+}
+
+void Account::changePins(const string& newPin1, const string& newPin2) {
+    this->pin1 = newPin1;
+    this->pin2_static = newPin2;
+}
+
+void Account::displayInfo() const {
+    cout << "Account Number: " << accountNumber << endl;
+    cout << "Card Number: " << cardNumber << endl;
+    cout << "Sheba: " << shebaNumber << endl;
+    cout << "Balance: " << balance << " Toman" << endl;
+// Start Gpt codes
+    char buffer[80];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", localtime(&expirationDate));
+    cout << "Expiration Date: " << buffer << endl;
+// end Gpt codes
+}

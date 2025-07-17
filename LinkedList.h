@@ -11,7 +11,7 @@ template <typename T>
 class LinkedList {
 private:
     struct Node {
-        T data;
+        T data; 
         Node* next;
 
         Node(T val) : data(val), next(nullptr) {}

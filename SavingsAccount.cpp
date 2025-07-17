@@ -1,19 +1,51 @@
 #include "SavingsAccount.h"
 #include <iostream>
+#include <ctime>
+
 using namespace std;
 
-SavingsAccount::SavingsAccount(const string& accNum, const string& cardNum, const string& sheba, 
-                               const string& pin, const string& pin2, double rate)
-    : Account(accNum, cardNum, sheba, pin, pin2), interestRate(rate) {
+DepositAccount::DepositAccount(const string& cardNum, const string& accNum, const string& ibanNum, 
+                              const string& primaryPass, const string& staticSecondPass, double rate)
+    : Account(cardNum, accNum, ibanNum, primaryPass, staticSecondPass), 
+      interestRate(rate), lastInterestDate(time(0)) {
 }
 
-void SavingsAccount::displayAccountTypeDifference() const {
-    cout << "Account Type: Savings Account" << endl;
-    cout << "Interest Rate: " << interestRate << "%" << endl;
-    cout << "Features: Earns interest on deposits" << endl;
+void DepositAccount::displayAccountTypeDifference() const {
+    cout << "=== Deposit Account Features ===" << endl;
+    cout << "Account Type: Deposit Account (Sepordeh)" << endl;
+    cout << "Interest Rate: " << (interestRate * 100) << "% per year" << endl;
+    cout << "Interest earned so far: " << calculateInterest() << " Toman" << endl;
+    cout << "Special Feature: Earns interest on deposited amount" << endl;
+    cout << "Minimum Balance: 50,000 Toman" << endl;
 }
 
-void SavingsAccount::applyInterest() {
-    balance = balance * (1 + interestRate / 100);
-    cout << "Interest applied. New balance: " << balance << endl;
+void DepositAccount::applyInterest() {
+    time_t now = time(0);
+    tm* nowTm = localtime(&now);
+    tm* lastTm = localtime(&lastInterestDate);
+    
+    // Apply interest monthly
+    if (nowTm->tm_mon != lastTm->tm_mon || nowTm->tm_year != lastTm->tm_year) {
+        double monthlyInterest = balance * (interestRate / 12.0);
+        balance += monthlyInterest;
+        lastInterestDate = now;
+        
+        cout << "Monthly interest applied: " << monthlyInterest << " Toman" << endl;
+        cout << "New balance: " << balance << " Toman" << endl;
+    }
+}
+
+double DepositAccount::calculateInterest() const {
+    // Calculate potential interest for display purposes
+    return balance * (interestRate / 12.0);
+}
+
+double DepositAccount::getInterestRate() const {
+    return interestRate;
+}
+
+void DepositAccount::setInterestRate(double rate) {
+    if (rate >= 0 && rate <= 1.0) {
+        interestRate = rate;
+    }
 }

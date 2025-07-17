@@ -1,32 +1,48 @@
 #ifndef USER_H
 #define USER_H
-using namespace std;
+
 #include <string>
+#include <iostream>
+using namespace std;
 
 class User {
 protected:
     string firstName;
     string lastName;
-    string nationalId; 
+    string nationalId;
     int age;
     string username;
     string password;
 
 public:
-    User(const std::string& fname, const std::string& lname, const std::string& natId, int userAge, const std::string& uname, const std::string& pass);
-
+    // Constructor
+    User(const string& fname, const string& lname, const string& natId, 
+         int userAge, const string& uname, const string& pass);
+    
+    // Virtual destructor
     virtual ~User();
-
+    
+    // Getters
+    string getFirstName() const;
+    string getLastName() const;
     string getUsername() const;
     string getFullName() const;
-
-    string getNationalID() const;
-
-    bool checkPassword(const std::string& pass) const;
-
-    void changeInfo(const std::string& newFirstName, const std::string& newLastName, int newAge);
-
-    void displayInfo() const;
+    string getNationalId() const;
+    int getAge() const;
+    
+    // Authentication
+    bool checkPassword(const string& pass) const;
+    void changePassword(const string& oldPass, const string& newPass);
+    
+    // User information management
+    void changeInfo(const string& newFirstName, const string& newLastName, int newAge);
+    
+    // Display functions
+    virtual void displayInfo() const;
+    
+    // Pure virtual functions for login and registration
+    virtual bool login(const string& username, const string& password) = 0;
+    virtual void showMainMenu() = 0;
 };
 
 #endif 

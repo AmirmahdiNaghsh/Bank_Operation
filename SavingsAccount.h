@@ -1,17 +1,23 @@
-//Sepordeh
-#ifndef SAVINGSACCOUNT_H
-#define SAVINGSACCOUNT_H
+#ifndef DEPOSITACCOUNT_H
+#define DEPOSITACCOUNT_H
 
 #include "Account.h"
 
-class SavingsAccount : public Account {
+// DepositAccount (Sepordeh) - Savings Account with interest
+class DepositAccount : public Account {
 private:
     double interestRate;
+    time_t lastInterestDate;
 
 public:
-    SavingsAccount(const string& accNum, const string& cardNum, const string& sheba, const string& pin, const string& pin2, double rate);
+    DepositAccount(const string& cardNum, const string& accNum, const string& ibanNum, 
+                  const string& primaryPass, const string& staticSecondPass, double rate = 0.15);
+    
     void displayAccountTypeDifference() const override;
     void applyInterest();
+    double calculateInterest() const;
+    double getInterestRate() const;
+    void setInterestRate(double rate);
 };
 
 #endif

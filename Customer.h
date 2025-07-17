@@ -5,22 +5,44 @@
 #include "LinkedList.h"
 #include <string>
 
-using namespace std; 
+using namespace std;
 
 class Account;
 
 class Customer : public User {
 private:
-    LinkedList<Account*> bankAccounts; 
+    LinkedList<Account*> bankAccounts;
+    static const int MAX_ACCOUNTS = 5;
 
 public:
-    Customer(const string& fname, const string& lname, const string& natId, int userAge, const string& uname, const string& pass);
+    Customer(const string& fname, const string& lname, const string& natId, 
+            int userAge, const string& uname, const string& pass);
     
     ~Customer();
-    void addAccount(Account* newAccount);
-    void displayInfo() const;
+    
+    // Account management
+    bool addAccount(Account* newAccount);
+    bool removeAccount(const string& cardNumber);
     Account* findAccountByCardNumber(const string& cardNumber);
     LinkedList<Account*>& getAccounts();
+    int getAccountCount() const;
+    
+    // Customer capabilities
+    void viewAllAccounts() const;
+    void viewSpecificAccount(const string& cardNumber) const;
+    bool changeAccountPassword(const string& cardNumber, const string& passwordType, 
+                              const string& oldPass, const string& newPass);
+    bool performCardToCardTransfer(const string& fromCard, const string& toCard, 
+                                  double amount, const string& secondPassword);
+    string generateDynamicPassword(const string& cardNumber);
+    
+    // Inherited virtual functions
+    bool login(const string& username, const string& password) override;
+    void showMainMenu() override;
+    void displayInfo() const override;
+    
+    // Helper functions
+    string getCardHolderName(const string& cardNumber) const;
 };
 
 #endif
