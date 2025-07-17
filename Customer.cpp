@@ -44,3 +44,13 @@ void Customer::displayInfo() const {
         bankAccounts.display();
     }
 }
+
+Account* Customer::findAccountByCardNumber(const string& cardNumber) {
+    return bankAccounts.find([&](Account* acc) {
+        return acc->getCardNumber() == cardNumber;
+    });
+}
+
+LinkedList<Account*>& Customer::getAccounts() {
+    return bankAccounts;
+}
