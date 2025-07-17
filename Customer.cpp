@@ -24,3 +24,12 @@ Customer::~Customer() {
         currentNode = currentNode->getNext();
     }
 }
+
+void Customer::addAccount(Account* newAccount) {
+    if (bankAccounts.getCount() < 5) {
+        bankAccounts.add(newAccount);
+    } else {
+        cout << "Error: Customer cannot have more than 5 accounts." << endl;
+        delete newAccount;
+    }
+}
