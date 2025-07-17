@@ -72,3 +72,24 @@ void Bank::showMainMenu() {
     cout << "2. Exit" << endl;
     cout << "Enter your choice: ";
 }
+
+void Bank::handleLogin() {
+    string username, password;
+    cout << "Enter username: ";
+    cin >> username;
+    cout << "Enter password: ";
+    cin >> password;
+
+    User* user = findUserByUsername(username);
+    if (user && user->checkPassword(password)) {
+        currentUser = user;
+        cout << "Login successful! Welcome " << currentUser->getFullName() << endl;
+    } else {
+        cout << "Invalid username or password." << endl;
+    }
+}
+
+void Bank::handleLogout() {
+    cout << "Logging out " << currentUser->getFullName() << "..." << endl;
+    currentUser = nullptr;
+}
