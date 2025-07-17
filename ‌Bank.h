@@ -10,3 +10,11 @@ class Admin;
 class Account;
 
 using namespace std;
+
+class Bank {
+private:
+    LinkedList<User*> users; 
+    User* currentUser;
+    User* findUserByUsername(const string& username);
+    Account* findAccountByCardNumber(const string& cardNumber);
+    
