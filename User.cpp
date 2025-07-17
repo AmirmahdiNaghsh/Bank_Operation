@@ -20,3 +20,8 @@ string User::getFullName() const {
 string User:: getNatioalID() const{
     return nationalID;
 }
+
+bool User::changePassword(const string& pass) const{
+    return password == pass;
+}
+
