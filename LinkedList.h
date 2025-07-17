@@ -26,3 +26,17 @@ public:
             current = nextNode;
         }
     }
+
+        void add(T item) {
+        Node* newNode = new Node(item);
+        if (head == nullptr) {
+            head = newNode;
+        } else {
+            Node* current = head;
+            while (current->next != nullptr) {
+                current = current->next;
+            }
+            current->next = newNode;
+        }
+        count++; 
+    }
