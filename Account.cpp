@@ -20,3 +20,19 @@ pin2_dynamic("")
 }
 
 Account::~Account(){}
+
+string Account::getCardNumber() const{
+    return cardNumber;
+}
+
+string Account::getAccountNumber() const{
+    return accountNumber;
+}
+
+string Account::getBalance() const{
+    return balance;
+}
+
+bool Account::isExpired() const{
+    return time(0) > expirationDate;
+}
