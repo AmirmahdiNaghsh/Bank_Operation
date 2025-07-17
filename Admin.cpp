@@ -30,4 +30,11 @@ void Admin::addCustomer(LinkedList<User*>& users, const string& fname, const str
 
 bool Admin::removeCustomer(LinkedList<User*>& users, const string username){
     User* userToRemove = users.find([&](user* u){retuen u->getUsername() == username;})
+
+    if (userToRemove == nullptr)
+    {
+        cout << "Error: User " << username << " not found." << endl;
+        return false;
+    }
+    
 }
