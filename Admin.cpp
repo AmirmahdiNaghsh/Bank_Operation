@@ -22,5 +22,9 @@ void Admin::addCustomer(LinkedList<User*>& users, const string& fname, const str
     {
         cout<< "Error: Username " << uname << " already exists."<< endl;
         return;
+
+        Customer* newCustomer = new Customer(fname, lname,natId,age,uname,pass);
+        users.add(newCustomer);
+        cout<< " customer " << uname << " added successfully." << endl;
     }
 
