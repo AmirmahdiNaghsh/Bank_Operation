@@ -20,3 +20,7 @@ Bank::~Bank() {
     }
     cout << "Bank system shut down. All data cleared." << endl;
 }
+
+void Bank::setupInitialData() {
+    Admin* admin1 = new Admin("admin", "admin", "0000000000", 30, "admin", "123");
+    users.add(admin1);
