@@ -25,3 +25,15 @@ bool User::changePassword(const string& pass) const{
     return password == pass;
 }
 
+void User::changeInfo(const string& newFirstName, const string& newLastName, int newAge) {
+    this->firstName = newFirstName;
+    this->lastName = newLastName;
+    this->age = newAge;
+}
+
+void User::desplayInfo() const {
+    cout<< "Full Name: " << fullName() << endl;
+    cout<< "Last Name: " << lastName() << endl;
+    cout << "NationalID: " << nationalID() << endl;
+    cout << "Age: " << age << endl;
+}
