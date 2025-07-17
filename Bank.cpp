@@ -130,3 +130,37 @@ void Bank::showAdminMenu(Admin* admin) {
             cout << "Invalid choice." << endl;
     }
 }
+
+void Bank::showCustomerMenu(Customer* customer) {
+    cout << "\n--- Customer Menu (" << customer->getUsername() << ") ---" << endl;
+    cout << "1. Card to Card Transfer" << endl;
+    cout << "2. View Accounts" << endl;
+    cout << "3. Change Account Password" << endl;
+    cout << "9. Logout" << endl;
+    cout << "Enter your choice: ";
+    int choice;
+    cin >> choice;
+     if (cin.fail()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        choice = -1; 
+    }
+
+    switch (choice) {
+        case 1:
+            performCardToCard(customer); 
+            break;
+        case 2:
+            viewCustomerAccounts(customer);
+            break;
+        case 3:
+            changeAccountPassword(customer);
+            break;
+        case 9:
+            handleLogout();
+            break;
+        default:
+            cout << "Invalid choice." << endl;
+    }
+}
+
