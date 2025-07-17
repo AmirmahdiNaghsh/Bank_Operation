@@ -65,3 +65,10 @@ void Bank::run() {
     } while (choice != 2);
     cout << "Exiting the program. Goodbye!" << endl;
 }
+
+void Bank::showMainMenu() {
+    cout << "\n--- Main Menu ---" << endl;
+    cout << "1. Login" << endl;
+    cout << "2. Exit" << endl;
+    cout << "Enter your choice: ";
+}
