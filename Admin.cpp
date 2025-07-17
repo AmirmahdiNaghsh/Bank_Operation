@@ -51,3 +51,28 @@ if (dynamic_cast<Customer*>(userToRemove))
     return false;
 }
 
+void Admin::addAccountToCustomer(Customer* customer, int accountType, const string& accNum, const string& cardNum, const string& sheba, const string& pin, const string& pin2) {
+    if (!customer) {
+        cout << "Error: Customer not found." << endl;
+        return;
+    }
+
+    Account* newAccount = nullptr;
+    switch (accountType) {
+        case 1:
+            newAccount = new SavingsAccount(accNum, cardNum, sheba, pin, pin2, 1.5);
+            break;
+        case 2:
+            newAccount = new CurrentAccount(accNum, cardNum, sheba, pin, pin2);
+            break;
+        case 3:
+            newAccount = new LoanAccount(accNum, cardNum, sheba, pin, pin2);
+            break;
+        default:
+            cout << "Error: Invalid account type." << endl;
+            return;
+    }
+
+    customer->addAccount(newAccount);
+    cout << "Account created and added to customer '" << customer->getUsername() << "' successfully." << endl;
+}
