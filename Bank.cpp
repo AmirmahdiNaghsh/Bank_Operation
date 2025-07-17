@@ -30,3 +30,38 @@ void Bank::setupInitialData() {
     account1->deposit(5000000);
     customer1->addAccount(account1);
     users.add(customer1);
+
+        Customer* customer2 = new Customer("sara", "saraei", "2222222222", 35, "sara", "123");
+    Account* account2 = new CurrentAccount("2222", "6219", "IR2222", "2222", "2222");
+    account2->deposit(10000000);
+    customer2->addAccount(account2);
+    users.add(customer2);
+
+    cout << "Initial data has been set up." << endl;
+}
+
+void Bank::run() {
+    setupInitialData();
+    int choice;
+    do {
+        if (currentUser == nullptr) {
+            showMainMenu();
+            cin >> choice;
+            if (cin.fail()) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                choice = -1; 
+            }
+            if (choice == 1) {
+                handleLogin();
+            }
+        } else {
+            if (Admin* admin = dynamic_cast<Admin*>(currentUser)) {
+                showAdminMenu(admin);
+            } else if (Customer* customer = dynamic_cast<Customer*>(currentUser)) {
+                showCustomerMenu(customer);
+            }
+        }
+    } while (choice != 2);
+    cout << "Exiting the program. Goodbye!" << endl;
+}
