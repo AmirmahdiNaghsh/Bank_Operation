@@ -168,3 +168,26 @@ void Bank::viewCustomerAccounts(Customer* customer) {
     cout << "\n--- Your Bank Accounts ---" << endl;
     customer->getAccounts().display();
 }
+
+void Bank::changeAccountPassword(Customer* customer) {
+    string cardNum, oldPin, newPin1, newPin2;
+    cout << "Enter card number to change its passwords: ";
+    cin >> cardNum;
+    Account* acc = customer->findAccountByCardNumber(cardNum);
+    if (!acc) {
+        cout << "Account not found." << endl;
+        return;
+    }
+    cout << "Enter current PIN1: ";
+    cin >> oldPin;
+    if (acc->checkPin1(oldPin)) {
+        cout << "Enter new PIN1: ";
+        cin >> newPin1;
+        cout << "Enter new static PIN2: ";
+        cin >> newPin2;
+        acc->changePins(newPin1, newPin2);
+        cout << "Passwords changed successfully." << endl;
+    } else {
+        cout << "Incorrect PIN." << endl;
+    }
+}
