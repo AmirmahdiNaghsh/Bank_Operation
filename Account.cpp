@@ -18,3 +18,5 @@ pin2_dynamic("")
     ltm->tm_year += 5;
     this->expirationDate = mktime(ltm);
 }
+
+Account::~Account(){}
