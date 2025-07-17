@@ -1,4 +1,4 @@
-#ifdef USER_H
+#ifndef USER_H
 #define USER_H
 using namespace std;
 #include <string>
@@ -7,26 +7,26 @@ class User {
 protected:
     string firstName;
     string lastName;
-    string natioalID;
+    string nationalId; 
     int age;
     string username;
     string password;
 
 public:
-    User(const string& fname,const string& lname, const string& natId, int userAge, const string& uname, const string& pass);
+    User(const std::string& fname, const std::string& lname, const std::string& natId, int userAge, const std::string& uname, const std::string& pass);
 
     virtual ~User();
 
     string getUsername() const;
     string getFullName() const;
+
     string getNationalID() const;
 
+    bool checkPassword(const std::string& pass) const;
 
-    bool checkPassword(const string& pass) const;
+    void changeInfo(const std::string& newFirstName, const std::string& newLastName, int newAge);
 
-    virtual void changeInfo(const std::string& newFirstName, const std::string& newLastName, int newAge);
-
-    virtual void displayInfo() const;
-
+    void displayInfo() const;
 };
-#endif
+
+#endif 
