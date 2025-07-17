@@ -98,3 +98,16 @@ User* Bank::findUserByUsername(const string& username) {
     return users.find([&](User* u){ return u->getUsername() == username; });
 }
 
+Account* Bank::findAccountByCardNumber(const string& cardNumber) {
+    auto* userNode = users.getHead();
+    while (userNode != nullptr) {
+        if (Customer* customer = dynamic_cast<Customer*>(userNode->getData())) {
+            Account* foundAccount = customer->findAccountByCardNumber(cardNumber);
+            if (foundAccount) {
+                return foundAccount;
+            }
+        }
+        userNode = userNode->getNext();
+    }
+    return nullptr; 
+}
