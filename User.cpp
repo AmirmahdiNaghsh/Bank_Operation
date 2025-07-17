@@ -3,11 +3,10 @@
 
 using namespace std;
 
-User::User(const string& fname, const string& lname, const string& natID, int userAge, const string& uname, const string& pass)
-: firstName(fname), lastName(lname), nationalID(natID), age(userAge), username(uname), password(pass){}
+User::User(const string& fname, const string& lname, const string& natId, int userAge, const string& uname, const string& pass)
+    : firstName(fname), lastName(lname), nationalId(natId), age(userAge), username(uname), password(pass) {}
 
-User::~User() {
-}
+User::~User() {}
 
 string User::getUsername() const {
     return username;
@@ -17,11 +16,11 @@ string User::getFullName() const {
     return firstName + " " + lastName;
 }
 
-string User:: getNatioalID() const{
-    return nationalID;
+string User::getNationalID() const {
+    return nationalId; 
 }
 
-bool User::changePassword(const string& pass) const{
+bool User::checkPassword(const string& pass) const {
     return password == pass;
 }
 
@@ -31,9 +30,10 @@ void User::changeInfo(const string& newFirstName, const string& newLastName, int
     this->age = newAge;
 }
 
-void User::desplayInfo() const {
-    cout<< "Full Name: " << fullName() << endl;
-    cout<< "Last Name: " << lastName() << endl;
-    cout << "NationalID: " << nationalID() << endl;
+void User::displayInfo() const {
+    cout << "Full Name: " << getFullName() << endl;
+    cout << "National ID: " << getNationalID() << endl;
+
+    cout << "Username: " << getUsername() << endl; 
     cout << "Age: " << age << endl;
 }
