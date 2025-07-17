@@ -76,3 +76,10 @@ void Admin::addAccountToCustomer(Customer* customer, int accountType, const stri
     customer->addAccount(newAccount);
     cout << "Account created and added to customer '" << customer->getUsername() << "' successfully." << endl;
 }
+
+void Admin::changeUserInfo(User* userToChange, const string& newFirstName, const string& newLastName, int newAge) {
+    if (userToChange) {
+        userToChange->changeInfo(newFirstName, newLastName, newAge);
+        cout << "User '" << userToChange->getUsername() << "' information updated." << endl;
+    }
+}
