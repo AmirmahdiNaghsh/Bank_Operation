@@ -35,4 +35,8 @@ string Account::getBalance() const{
 
 bool Account::isExpired() const{
     return time(0) > expirationDate;
+
+    void Account::setDynamicpin(const sting& newDynamicPin) {
+        this->pin2_dynamic = newDynamicPin; 
+    } 
 }
