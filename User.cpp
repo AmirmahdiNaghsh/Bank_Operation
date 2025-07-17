@@ -4,4 +4,4 @@
 using namespace std;
 
 User::User(const string& fname, const string& lname, const string& natID, int userAge, const string& uname, const string& pass)
-: firstName(fname), lastName(lname)
+: firstName(fname), lastName(lname), nationalID(natID), age(userAge), username(uname), password(pass){}
