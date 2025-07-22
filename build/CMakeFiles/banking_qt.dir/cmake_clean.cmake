@@ -1,0 +1,42 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/banking_qt_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/banking_qt_autogen.dir/ParseCache.txt"
+  "banking_qt_autogen"
+  "BankingSystemGUI.app/Contents/MacOS/BankingSystemGUI"
+  "BankingSystemGUI.pdb"
+  "CMakeFiles/banking_qt.dir/Account.cpp.o"
+  "CMakeFiles/banking_qt.dir/Account.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/Admin.cpp.o"
+  "CMakeFiles/banking_qt.dir/Admin.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/CurrentAccount.cpp.o"
+  "CMakeFiles/banking_qt.dir/CurrentAccount.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/Customer.cpp.o"
+  "CMakeFiles/banking_qt.dir/Customer.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/LoanAccount.cpp.o"
+  "CMakeFiles/banking_qt.dir/LoanAccount.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/SavingsAccount.cpp.o"
+  "CMakeFiles/banking_qt.dir/SavingsAccount.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/User.cpp.o"
+  "CMakeFiles/banking_qt.dir/User.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/adminwindow.cpp.o"
+  "CMakeFiles/banking_qt.dir/adminwindow.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/banking_qt_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/banking_qt.dir/banking_qt_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/bankingsystem.cpp.o"
+  "CMakeFiles/banking_qt.dir/bankingsystem.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/customerwindow.cpp.o"
+  "CMakeFiles/banking_qt.dir/customerwindow.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/loginwindow.cpp.o"
+  "CMakeFiles/banking_qt.dir/loginwindow.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/main_qt.cpp.o"
+  "CMakeFiles/banking_qt.dir/main_qt.cpp.o.d"
+  "CMakeFiles/banking_qt.dir/transferdialog.cpp.o"
+  "CMakeFiles/banking_qt.dir/transferdialog.cpp.o.d"
+  "banking_qt_autogen/mocs_compilation.cpp"
+  "banking_qt_autogen/timestamp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/banking_qt.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

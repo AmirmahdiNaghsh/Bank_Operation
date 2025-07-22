@@ -20,14 +20,14 @@ public:
     
     ~Customer();
     
-    // Account management
+    
     bool addAccount(Account* newAccount);
     bool removeAccount(const string& cardNumber);
     Account* findAccountByCardNumber(const string& cardNumber);
     LinkedList<Account*>& getAccounts();
     int getAccountCount() const;
     
-    // Customer capabilities
+    
     void viewAllAccounts() const;
     void viewSpecificAccount(const string& cardNumber) const;
     bool changeAccountPassword(const string& cardNumber, const string& passwordType, 
@@ -36,12 +36,12 @@ public:
                                   double amount, const string& secondPassword);
     string generateDynamicPassword(const string& cardNumber);
     
-    // Inherited virtual functions
+    
     bool login(const string& username, const string& password) override;
     void showMainMenu() override;
     void displayInfo() const override;
     
-    // Helper functions
+    
     string getCardHolderName(const string& cardNumber) const;
 };
 

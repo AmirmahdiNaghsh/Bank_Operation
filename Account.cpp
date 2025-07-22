@@ -7,37 +7,37 @@
 
 using namespace std;
 
-// Default constructor
+
 Account::Account() 
     : cardNumber(""), accountNumber(""), iban(""), cvv2(""), expirationDate(0),
       balance(0.0), primaryPassword(""), staticSecondPassword(""), 
       dynamicSecondPassword(""), dailyTransferAmount(0.0), lastTransferDate(0) {
 }
 
-// Parameterized constructor
+
 Account::Account(const string& cardNum, const string& accNum, const string& ibanNum, 
                 const string& primaryPass, const string& staticSecondPass)
     : cardNumber(cardNum), accountNumber(accNum), iban(ibanNum),
       primaryPassword(primaryPass), staticSecondPassword(staticSecondPass),
       balance(0.0), dynamicSecondPassword(""), dailyTransferAmount(0.0), lastTransferDate(0) {
     
-    // Generate random CVV2
+    
     random_device rd;
     mt19937 gen(rd());
     uniform_int_distribution<> dis(100, 999);
     cvv2 = to_string(dis(gen));
     
-    // Set expiration date to 5 years from now
+    
     time_t now = time(0);
     tm* timeinfo = localtime(&now);
     timeinfo->tm_year += 5;
     expirationDate = mktime(timeinfo);
 }
 
-// Virtual destructor
+
 Account::~Account() {}
 
-// Getters
+
 string Account::getCardNumber() const { return cardNumber; }
 string Account::getAccountNumber() const { return accountNumber; }
 string Account::getIban() const { return iban; }
@@ -48,7 +48,7 @@ string Account::getPrimaryPassword() const { return primaryPassword; }
 string Account::getStaticSecondPassword() const { return staticSecondPassword; }
 string Account::getDynamicSecondPassword() const { return dynamicSecondPassword; }
 
-// Setters
+
 void Account::setPrimaryPassword(const string& newPass) {
     primaryPassword = newPass;
 }
@@ -61,7 +61,7 @@ void Account::setDynamicSecondPassword(const string& newPass) {
     dynamicSecondPassword = newPass;
 }
 
-// Account operations
+
 bool Account::deposit(double amount) {
     if (amount <= 0) {
         cout << "Invalid amount. Amount must be positive." << endl;
@@ -112,7 +112,7 @@ bool Account::transfer(Account* toAccount, double amount, const string& secondPa
         return false;
     }
     
-    // Calculate fee (0.01%)
+    
     double fee = amount * 0.0001;
     double totalAmount = amount + fee;
     
@@ -121,12 +121,12 @@ bool Account::transfer(Account* toAccount, double amount, const string& secondPa
         return false;
     }
     
-    // Perform transfer
+    
     balance -= totalAmount;
     toAccount->deposit(amount);
     updateDailyTransferAmount(amount);
     
-    // Clear dynamic password after use
+    
     if (amount > 100000) {
         clearDynamicPassword();
     }
@@ -135,7 +135,7 @@ bool Account::transfer(Account* toAccount, double amount, const string& secondPa
     return true;
 }
 
-// Display functions
+
 void Account::displayAccountInfo() const {
     cout << "=== Account Information ===" << endl;
     cout << "Card Number: " << cardNumber << endl;
@@ -144,7 +144,7 @@ void Account::displayAccountInfo() const {
     cout << "CVV2: " << cvv2 << endl;
     cout << "Balance: " << balance << " Toman" << endl;
     
-    // Display expiration date
+    
     tm* timeinfo = localtime(&expirationDate);
     cout << "Expiration Date: " << (timeinfo->tm_mon + 1) << "/" 
          << (timeinfo->tm_year + 1900) << endl;
@@ -152,7 +152,7 @@ void Account::displayAccountInfo() const {
     cout << "Status: " << (isExpired() ? "Expired" : "Active") << endl;
 }
 
-// Validation functions
+
 bool Account::isValidAmount(double amount) const {
     return amount > 0;
 }
@@ -171,22 +171,22 @@ bool Account::checkPrimaryPassword(const string& pass) const {
 
 bool Account::checkSecondPassword(const string& pass, double amount) const {
     if (amount <= 100000) {
-        // Use static second password for amounts up to 100,000 Toman
+        
         return staticSecondPassword == pass;
     } else {
-        // Use dynamic second password for amounts over 100,000 Toman
+        
         return dynamicSecondPassword == pass && !dynamicSecondPassword.empty();
     }
 }
 
-// Transfer limit checking
+
 bool Account::checkTransferLimits(double amount) const {
-    // Check per-transaction limit (3,000,000 Toman)
+    
     if (amount > 3000000) {
         return false;
     }
     
-    // Check daily limit (10,000,000 Toman)
+    
     const_cast<Account*>(this)->resetDailyLimitIfNeeded();
     if (dailyTransferAmount + amount > 10000000) {
         return false;
@@ -206,13 +206,13 @@ void Account::resetDailyLimitIfNeeded() {
     tm* nowTm = localtime(&now);
     tm* lastTm = localtime(&lastTransferDate);
     
-    // Reset if it's a different day
+    
     if (nowTm->tm_yday != lastTm->tm_yday || nowTm->tm_year != lastTm->tm_year) {
         dailyTransferAmount = 0.0;
     }
 }
 
-// Dynamic password generation
+
 string Account::generateDynamicPassword() {
     random_device rd;
     mt19937 gen(rd());

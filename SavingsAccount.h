@@ -3,7 +3,7 @@
 
 #include "Account.h"
 
-// DepositAccount (Sepordeh) - Savings Account with interest
+
 class DepositAccount : public Account {
 private:
     double interestRate;

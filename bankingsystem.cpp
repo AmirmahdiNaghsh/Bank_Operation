@@ -3,6 +3,7 @@
 #include "CurrentAccount.h"
 #include "LoanAccount.h"
 #include <QString>
+#include <QDebug>
 
 BankingSystem* BankingSystem::instance = nullptr;
 
@@ -13,17 +14,18 @@ BankingSystem::BankingSystem(QObject *parent)
 
 BankingSystem::~BankingSystem()
 {
-    // Clean up allocated memory
-    auto* currentNode = allCustomers.getHead();
-    while (currentNode != nullptr) {
-        delete currentNode->getData();
-        currentNode = currentNode->getNext();
+    // Clean up customers
+    auto* customerNode = allCustomers.getHead();
+    while (customerNode != nullptr) {
+        delete customerNode->getData();
+        customerNode = customerNode->getNext();
     }
     
-    currentNode = allAdmins.getHead();
-    while (currentNode != nullptr) {
-        delete currentNode->getData();
-        currentNode = currentNode->getNext();
+    // Clean up admins
+    auto* adminNode = allAdmins.getHead();
+    while (adminNode != nullptr) {
+        delete adminNode->getData();
+        adminNode = adminNode->getNext();
     }
 }
 
@@ -37,7 +39,9 @@ BankingSystem& BankingSystem::getInstance()
 
 void BankingSystem::initializeSystem()
 {
+    qDebug() << "Starting createSampleData...";
     createSampleData();
+    qDebug() << "createSampleData completed...";
 }
 
 Customer* BankingSystem::authenticateCustomer(const QString& username, const QString& password)
@@ -110,10 +114,13 @@ QString BankingSystem::getCardHolderName(const QString& cardNumber)
 
 void BankingSystem::createSampleData()
 {
+    qDebug() << "Creating sample admin...";
     // Create sample admin
     Admin* sampleAdmin = new Admin("Admin", "User", "1234567890", 30, "admin", "admin123");
     allAdmins.add(sampleAdmin);
+    qDebug() << "Admin created and added...";
     
+    qDebug() << "Creating sample customers...";
     // Create sample customers
     Customer* customer1 = new Customer("Ali", "Ahmadi", "0123456789", 25, "ali_ahmadi", "pass123");
     Customer* customer2 = new Customer("Sara", "Hosseini", "0987654321", 28, "sara_h", "pass456");
@@ -146,5 +153,3 @@ void BankingSystem::createSampleData()
     customer2->addAccount(depositAcc2);
     allAccounts.add(depositAcc2);
 }
-
-#include "bankingsystem.moc"

@@ -11,7 +11,7 @@ User::User(const string& fname, const string& lname, const string& natId,
 
 User::~User() {}
 
-// Getters
+
 string User::getFirstName() const {
     return firstName;
 }
@@ -36,7 +36,7 @@ int User::getAge() const {
     return age;
 }
 
-// Authentication
+
 bool User::checkPassword(const string& pass) const {
     return password == pass;
 }
@@ -50,7 +50,7 @@ void User::changePassword(const string& oldPass, const string& newPass) {
     }
 }
 
-// User information management
+
 void User::changeInfo(const string& newFirstName, const string& newLastName, int newAge) {
     firstName = newFirstName;
     lastName = newLastName;
@@ -58,7 +58,7 @@ void User::changeInfo(const string& newFirstName, const string& newLastName, int
     cout << "User information updated successfully." << endl;
 }
 
-// Display functions
+
 void User::displayInfo() const {
     cout << "=== User Information ===" << endl;
     cout << "Full Name: " << getFullName() << endl;

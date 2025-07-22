@@ -1,0 +1,76 @@
+cmake_minimum_required(VERSION 3.16)
+project(BankingSystemGUI)
+
+# Set C++ standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Find Qt
+find_package(Qt6 COMPONENTS Core Widgets QUIET)
+if(NOT Qt6_FOUND)
+    find_package(Qt5 COMPONENTS Core Widgets REQUIRED)
+    set(QT_VERSION_MAJOR 5)
+else()
+    set(QT_VERSION_MAJOR 6)
+endif()
+
+# Set Qt properties
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
+
+# Source files
+set(SOURCES
+    main_qt.cpp
+    bankingsystem.cpp
+    loginwindow.cpp
+    customerwindow.cpp
+    adminwindow.cpp
+    transferdialog.cpp
+    Account.cpp
+    User.cpp
+    Customer.cpp
+    Admin.cpp
+    SavingsAccount.cpp
+    CurrentAccount.cpp
+    LoanAccount.cpp
+)
+
+# Header files
+set(HEADERS
+    bankingsystem.h
+    loginwindow.h
+    customerwindow.h
+    adminwindow.h
+    transferdialog.h
+    Account.h
+    User.h
+    Customer.h
+    Admin.h
+    SavingsAccount.h
+    CurrentAccount.h
+    LoanAccount.h
+    LinkedList.h
+)
+
+# UI files
+set(UI_FILES
+    loginwindow.ui
+    customerwindow.ui
+)
+
+# Create executable
+add_executable(BankingSystemGUI ${SOURCES} ${HEADERS} ${UI_FILES})
+
+# Link Qt libraries
+if(QT_VERSION_MAJOR EQUAL 6)
+    target_link_libraries(BankingSystemGUI Qt6::Core Qt6::Widgets)
+else()
+    target_link_libraries(BankingSystemGUI Qt5::Core Qt5::Widgets)
+endif()
+
+# Set target properties
+set_target_properties(BankingSystemGUI PROPERTIES
+    WIN32_EXECUTABLE TRUE
+    MACOSX_BUNDLE TRUE
+)

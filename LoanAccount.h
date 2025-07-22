@@ -3,7 +3,7 @@
 
 #include "Account.h"
 
-// QarzAccount (Gharz-ol-hasaneh) - Interest-free loan account
+
 class QarzAccount : public Account {
 private:
     double loanAmount;

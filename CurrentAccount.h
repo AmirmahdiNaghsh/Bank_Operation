@@ -3,7 +3,7 @@
 
 #include "Account.h"
 
-// CurrentAccount (Jari) - Current Account with checkbook and overdraft
+
 class CurrentAccount : public Account {
 private:
     bool hasCheckbook;

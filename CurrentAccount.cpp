@@ -37,12 +37,12 @@ bool CurrentAccount::withdraw(double amount) {
     }
     
     if (amount <= balance) {
-        // Normal withdrawal from balance
+        
         balance -= amount;
         cout << "Successfully withdrew " << amount << " Toman from balance." << endl;
         return true;
     } else if (hasOverdraftAvailable(amount - balance)) {
-        // Use overdraft
+        
         double overdraftNeeded = amount - balance;
         usedOverdraft += overdraftNeeded;
         balance = 0;

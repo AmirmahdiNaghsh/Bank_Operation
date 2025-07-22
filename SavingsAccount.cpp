@@ -24,7 +24,7 @@ void DepositAccount::applyInterest() {
     tm* nowTm = localtime(&now);
     tm* lastTm = localtime(&lastInterestDate);
     
-    // Apply interest monthly
+    
     if (nowTm->tm_mon != lastTm->tm_mon || nowTm->tm_year != lastTm->tm_year) {
         double monthlyInterest = balance * (interestRate / 12.0);
         balance += monthlyInterest;
@@ -36,7 +36,7 @@ void DepositAccount::applyInterest() {
 }
 
 double DepositAccount::calculateInterest() const {
-    // Calculate potential interest for display purposes
+    
     return balance * (interestRate / 12.0);
 }
 

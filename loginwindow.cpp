@@ -83,7 +83,7 @@ void LoginWindow::showCustomerWindow(Customer* customer)
 
 void LoginWindow::showAdminWindow(Admin* admin)
 {
-    AdminWindow* adminWindow = new AdminWindow(admin, this);
+    AdminWindow* adminWindow = new AdminWindow(admin, &BankingSystem::getInstance(), this);
     adminWindow->show();
     this->hide();
 }

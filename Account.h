@@ -8,28 +8,28 @@ using namespace std;
 
 class Account {
 protected:
-    string cardNumber;           // Unique card number
-    string accountNumber;        // Account number
-    string iban;                // IBAN
-    string cvv2;                // CVV2
-    time_t expirationDate;      // Expiration date
-    double balance;             // Balance
-    string primaryPassword;     // Primary password
-    string staticSecondPassword; // Static second password
-    string dynamicSecondPassword; // Dynamic second password
-    double dailyTransferAmount; // Daily transfer tracking
-    time_t lastTransferDate;    // Last transfer date for daily limit reset
+    string cardNumber;           
+    string accountNumber;        
+    string iban;                
+    string cvv2;                
+    time_t expirationDate;      
+    double balance;             
+    string primaryPassword;     
+    string staticSecondPassword; 
+    string dynamicSecondPassword; 
+    double dailyTransferAmount; 
+    time_t lastTransferDate;    
 
 public:
-    // Constructors
+    
     Account();
     Account(const string& cardNum, const string& accNum, const string& ibanNum, 
            const string& primaryPass, const string& staticSecondPass);
     
-    // Virtual destructor
+    
     virtual ~Account();
     
-    // Getters
+    
     string getCardNumber() const;
     string getAccountNumber() const;
     string getIban() const;
@@ -40,33 +40,33 @@ public:
     string getStaticSecondPassword() const;
     string getDynamicSecondPassword() const;
     
-    // Setters
+    
     void setPrimaryPassword(const string& newPass);
     void setStaticSecondPassword(const string& newPass);
     void setDynamicSecondPassword(const string& newPass);
     
-    // Account operations
+    
     bool deposit(double amount);
     virtual bool withdraw(double amount);
     bool transfer(Account* toAccount, double amount, const string& secondPassword);
     
-    // Display functions
-    virtual void displayAccountInfo() const;
-    virtual void displayAccountTypeDifference() const = 0; // Pure virtual for account type differences
     
-    // Validation functions
+    virtual void displayAccountInfo() const;
+    virtual void displayAccountTypeDifference() const = 0; 
+    
+    
     bool isValidAmount(double amount) const;
     bool hasSufficientBalance(double amount) const;
     bool isExpired() const;
     bool checkPrimaryPassword(const string& pass) const;
     bool checkSecondPassword(const string& pass, double amount) const;
     
-    // Transfer limit checking
+    
     bool checkTransferLimits(double amount) const;
     void updateDailyTransferAmount(double amount);
     void resetDailyLimitIfNeeded();
     
-    // Dynamic password generation
+    
     string generateDynamicPassword();
     void clearDynamicPassword();
 };

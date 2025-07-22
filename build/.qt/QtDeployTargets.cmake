@@ -1,0 +1,4 @@
+set(__QT_DEPLOY_TARGET_banking_console_FILE /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/banking_console)
+set(__QT_DEPLOY_TARGET_banking_console_TYPE EXECUTABLE)
+set(__QT_DEPLOY_TARGET_banking_qt_FILE /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/BankingSystemGUI.app/Contents/MacOS/BankingSystemGUI)
+set(__QT_DEPLOY_TARGET_banking_qt_TYPE EXECUTABLE)

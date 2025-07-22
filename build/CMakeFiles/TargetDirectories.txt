@@ -1,0 +1,6 @@
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/banking_console.dir
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/banking_qt.dir
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/edit_cache.dir
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/rebuild_cache.dir
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/banking_qt_autogen_timestamp_deps.dir
+/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/build/CMakeFiles/banking_qt_autogen.dir

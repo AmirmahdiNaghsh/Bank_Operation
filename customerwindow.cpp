@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QTextStream>
+#include <QDateTime>
 
 CustomerWindow::CustomerWindow(Customer* customer, QWidget *parent)
     : QMainWindow(parent)

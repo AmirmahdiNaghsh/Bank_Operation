@@ -1,13 +1,13 @@
 #include "Admin.h"
 #include "Customer.h"
-#include "SavingsAccount.h"  // DepositAccount
+#include "SavingsAccount.h"  
 #include "CurrentAccount.h"
-#include "LoanAccount.h"     // QarzAccount
+#include "LoanAccount.h"     
 #include <iostream>
 
 using namespace std;
 
-// Static member definitions
+
 LinkedList<Customer*> Admin::allCustomers;
 LinkedList<Admin*> Admin::allAdmins;
 LinkedList<Account*> Admin::allAccounts;
@@ -20,10 +20,10 @@ Admin::Admin(const string& fname, const string& lname, const string& natId,
 
 Admin::~Admin() {}
 
-// Customer management
+
 bool Admin::addCustomer(const string& fname, const string& lname, const string& natId,
                        int age, const string& uname, const string& pass) {
-    // Check if username already exists
+    
     if (findCustomerByUsername(uname) != nullptr) {
         cout << "Error: Username '" << uname << "' already exists." << endl;
         return false;
@@ -42,7 +42,7 @@ bool Admin::removeCustomer(const string& username) {
         return false;
     }
     
-    // Remove customer's accounts first
+    
     auto* currentNode = customerToRemove->getAccounts().getHead();
     while (currentNode != nullptr) {
         Account* account = currentNode->getData();
@@ -52,7 +52,7 @@ bool Admin::removeCustomer(const string& username) {
         currentNode = currentNode->getNext();
     }
     
-    // Remove customer
+    
     bool removed = allCustomers.remove([&](Customer* customer) {
         return customer->getUsername() == username;
     });
@@ -86,10 +86,10 @@ void Admin::viewAllCustomers() const {
     }
 }
 
-// Admin management
+
 bool Admin::addAdmin(const string& fname, const string& lname, const string& natId,
                     int age, const string& uname, const string& pass) {
-    // Check if username already exists among admins
+    
     Admin* existingAdmin = allAdmins.find([&](Admin* admin) {
         return admin->getUsername() == uname;
     });
@@ -120,7 +120,7 @@ void Admin::viewAllAdmins() const {
     }
 }
 
-// Account management
+
 bool Admin::createAccount(const string& customerUsername, const string& accountType,
                          const string& cardNum, const string& accNum, const string& iban,
                          const string& primaryPass, const string& staticSecondPass) {
@@ -135,7 +135,7 @@ bool Admin::createAccount(const string& customerUsername, const string& accountT
         return false;
     }
     
-    // Check if card number already exists
+    
     if (findAccountByCardNumber(cardNum)) {
         cout << "Error: Card number '" << cardNum << "' already exists." << endl;
         return false;
@@ -192,10 +192,10 @@ void Admin::viewSpecificAccount(const string& cardNumber) const {
     }
 }
 
-// User information management
+
 bool Admin::editUserInfo(const string& username, const string& newFirstName,
                         const string& newLastName, int newAge) {
-    // Check customers first
+    
     Customer* customer = findCustomerByUsername(username);
     if (customer) {
         customer->changeInfo(newFirstName, newLastName, newAge);
@@ -203,7 +203,7 @@ bool Admin::editUserInfo(const string& username, const string& newFirstName,
         return true;
     }
     
-    // Check admins
+    
     Admin* admin = allAdmins.find([&](Admin* adm) {
         return adm->getUsername() == username;
     });
@@ -227,7 +227,7 @@ void Admin::viewUsersByType() const {
     viewAllAdmins();
 }
 
-// Static data management
+
 void Admin::addToCustomerList(Customer* customer) {
     allCustomers.add(customer);
 }
@@ -252,7 +252,7 @@ Account* Admin::findAccountByCardNumber(const string& cardNumber) {
     });
 }
 
-// Inherited virtual functions
+
 bool Admin::login(const string& uname, const string& pass) {
     if (username == uname && checkPassword(pass)) {
         cout << "Admin login successful. Welcome, " << getFullName() << "!" << endl;
@@ -281,8 +281,8 @@ void Admin::displayInfo() const {
     cout << "Access Level: Full System Access" << endl;
 }
 
-// Initialization
+
 void Admin::initializeDefaultData() {
-    // This will be called from main.cpp to set up sample data
+    
     cout << "Admin class initialization complete." << endl;
 }

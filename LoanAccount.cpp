@@ -10,7 +10,7 @@ QarzAccount::QarzAccount(const string& cardNum, const string& accNum, const stri
       loanAmount(loanAmt), remainingLoan(loanAmt), installments(installmentCount),
       loanStartDate(time(0)), monthlyInstallment(0) {
     
-    // Calculate due date (installments months from now)
+    
     time_t now = time(0);
     tm* timeinfo = localtime(&now);
     timeinfo->tm_mon += installments;
@@ -49,7 +49,7 @@ bool QarzAccount::requestLoan(double amount, int months) {
     installments = months;
     loanStartDate = time(0);
     
-    // Calculate due date
+    
     time_t now = time(0);
     tm* timeinfo = localtime(&now);
     timeinfo->tm_mon += months;
@@ -57,7 +57,7 @@ bool QarzAccount::requestLoan(double amount, int months) {
     
     monthlyInstallment = calculateMonthlyInstallment();
     
-    // Add loan amount to account balance
+    
     balance += amount;
     
     cout << "Loan approved and disbursed!" << endl;

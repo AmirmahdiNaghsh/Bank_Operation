@@ -1,7 +1,8 @@
 #include "Customer.h"
 #include "Account.h"
 #include <iostream>
-#include <random>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -18,7 +19,7 @@ Customer::~Customer() {
     }
 }
 
-// Account management
+
 bool Customer::addAccount(Account* newAccount) {
     if (bankAccounts.getCount() >= MAX_ACCOUNTS) {
         cout << "Error: Customer cannot have more than " << MAX_ACCOUNTS << " accounts." << endl;
@@ -53,7 +54,7 @@ int Customer::getAccountCount() const {
     return bankAccounts.getCount();
 }
 
-// Customer capabilities
+
 void Customer::viewAllAccounts() const {
     cout << "\n=== Your Bank Accounts ===" << endl;
     if (bankAccounts.getCount() == 0) {
@@ -115,15 +116,15 @@ bool Customer::changeAccountPassword(const string& cardNumber, const string& pas
 
 bool Customer::performCardToCardTransfer(const string& fromCard, const string& toCard, 
                                        double amount, const string& secondPassword) {
-    // Find source account
+    
     Account* fromAccount = findAccountByCardNumber(fromCard);
     if (!fromAccount) {
         cout << "Source account not found." << endl;
         return false;
     }
     
-    // This would normally find the destination account from a bank database
-    // For now, we'll simulate finding the recipient's name
+    
+    
     string recipientName = getCardHolderName(toCard);
     if (recipientName.empty()) {
         cout << "Invalid destination card number." << endl;
@@ -133,9 +134,9 @@ bool Customer::performCardToCardTransfer(const string& fromCard, const string& t
     cout << "Transfer to: " << recipientName << endl;
     cout << "Amount: " << amount << " Toman" << endl;
     
-    // For simulation, we'll create a temporary destination account
-    // In real implementation, this would be fetched from the bank's database
-    Account* toAccount = nullptr; // Would be found in the bank system
+    
+    
+    Account* toAccount = nullptr; 
     
     if (!toAccount) {
         cout << "Destination account not accessible for transfer." << endl;
@@ -157,7 +158,7 @@ string Customer::generateDynamicPassword(const string& cardNumber) {
     return "";
 }
 
-// Inherited virtual functions
+
 bool Customer::login(const string& uname, const string& pass) {
     if (username == uname && checkPassword(pass)) {
         cout << "Customer login successful. Welcome, " << getFullName() << "!" << endl;
@@ -184,12 +185,12 @@ void Customer::displayInfo() const {
     cout << "Number of Accounts: " << bankAccounts.getCount() << "/" << MAX_ACCOUNTS << endl;
 }
 
-// Helper functions
+
 string Customer::getCardHolderName(const string& cardNumber) const {
-    // In a real system, this would query the bank's database
-    // For simulation, we'll return a mock name if the card number is valid format
+    
+    
     if (cardNumber.length() == 16) {
-        return "Sample Recipient"; // Mock recipient name
+        return "Sample Recipient"; 
     }
     return "";
 }
