@@ -27,7 +27,7 @@ private slots:
 
 private:
     void setupUI();
-    void populateFromAccounts(); // Will use BankingSystem's account list
+    void populateFromAccounts();
 
     Customer* currentCustomer;
 
@@ -39,4 +39,4 @@ private:
     QPushButton* cancelBtn;
 };
 
-#endif // TRANSFERDIALOG_H
+#endif

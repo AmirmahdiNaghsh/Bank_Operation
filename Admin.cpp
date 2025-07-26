@@ -161,33 +161,62 @@ bool Admin::createAccount(const string& customerUsername, const string& accountT
     
     Account* newAccount = nullptr;
     
-    if (accountType == "deposit") {
-        newAccount = new DepositAccount(cardNum, accNum, iban, primaryPass, staticSecondPass, 0.05); // Default interest rate 5%
-    } else if (accountType == "current") {
-        newAccount = new CurrentAccount(cardNum, accNum, iban, primaryPass, staticSecondPass, 0); // Initial overdraft limit 0
-    } else if (accountType == "loan") {
-        newAccount = new QarzAccount(cardNum, accNum, iban, primaryPass, staticSecondPass);
-    } else {
-        qDebug() << "Error: Invalid account type:" << QString::fromStdString(accountType);
-        cout << "Error: Invalid account type. Use 'deposit', 'current', or 'loan'." << endl;
-        return false;
-    }
-    
-    if (newAccount) {
+    try {
+        if (accountType == "deposit") {
+            qDebug() << "Creating deposit account...";
+            newAccount = new DepositAccount(
+                cardNum,
+                accNum,
+                iban,
+                primaryPass,
+                staticSecondPass,
+                0.05  // Default interest rate 5%
+            );
+        } else if (accountType == "current") {
+            qDebug() << "Creating current account...";
+            newAccount = new CurrentAccount(
+                cardNum,
+                accNum,
+                iban,
+                primaryPass,
+                staticSecondPass,
+                0  // Initial overdraft limit
+            );
+        } else if (accountType == "loan") {
+            qDebug() << "Creating loan account...";
+            newAccount = new QarzAccount(  // Using QarzAccount instead of LoanAccount
+                cardNum,
+                accNum,
+                iban,
+                primaryPass,
+                staticSecondPass
+            );
+        } else {
+            qDebug() << "Error: Invalid account type:" << QString::fromStdString(accountType);
+            cout << "Error: Invalid account type. Use 'deposit', 'current', or 'loan'." << endl;
+            return false;
+        }
+        
+        if (!newAccount) {
+            qDebug() << "Failed to create account object";
+            return false;
+        }
+
         qDebug() << "Account object created successfully";
-    } else {
-        qDebug() << "Failed to create account object";
-        return false;
-    }
-    
-    if (newAccount) {
         customer->addAccount(newAccount);
         bankSystem.getAllAccounts().add(newAccount);
         qDebug() << "Account created successfully for customer:" << QString::fromStdString(customerUsername);
         return true;
+        
+    } catch (const std::exception& e) {
+        qDebug() << "Exception during account creation:" << e.what();
+        delete newAccount;  // Clean up if partially created
+        return false;
+    } catch (...) {
+        qDebug() << "Unknown error during account creation";
+        delete newAccount;  // Clean up if partially created
+        return false;
     }
-    
-    return false;
 }
 
 void Admin::viewAllAccounts() const {

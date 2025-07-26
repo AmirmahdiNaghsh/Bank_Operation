@@ -4,6 +4,7 @@
 #include "LoanAccount.h"
 #include <QString>
 #include <QDebug>
+#include <QDateTime>
 
 BankingSystem* BankingSystem::instance = nullptr;
 
@@ -86,7 +87,30 @@ bool BankingSystem::registerCustomer(const QString& firstName, const QString& la
                                        nationalId.toStdString(), age,
                                        username.toStdString(), password.toStdString());
     
+    // Create initial savings account for the new customer
+    QString cardNumber;
+    do {
+        // Generate a 16-digit card number using timestamp
+        cardNumber = QString("%1").arg(QDateTime::currentDateTime().toMSecsSinceEpoch() % 10000000000000000LL, 16, 10, QChar('0'));
+    } while (findAccountByCardNumber(cardNumber) != nullptr);
+    
+    QString accountNumber = QString("ACC%1").arg(allAccounts.getCount() + 1, 3, 10, QChar('0'));
+    QString iban = QString("IR%1").arg(QDateTime::currentDateTime().toString("yyyyMMddhhmmss"));
+    
+    DepositAccount* initialAccount = new DepositAccount(
+        cardNumber.toStdString(),
+        accountNumber.toStdString(),
+        iban.toStdString(),
+        "1234",  // Default primary password
+        "5678",  // Default secondary password
+        0.05     // 5% interest rate
+    );
+    
+    newCustomer->addAccount(initialAccount);
+    allAccounts.add(initialAccount);
     allCustomers.add(newCustomer);
+    
+    qDebug() << "Created initial savings account for customer with card number:" << cardNumber;
     
     qDebug() << "Customer added. New count:" << allCustomers.getCount();
     qDebug() << "Verifying customer was added...";
