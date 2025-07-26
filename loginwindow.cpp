@@ -48,25 +48,28 @@ void LoginWindow::onLoginClicked()
     
     // Try to authenticate as admin first
     Admin* admin = BankingSystem::getInstance().authenticateAdmin(username, password);
+
     if (admin) {
-        ui->statusLabel->setText("Admin login successful!");
-        showAdminWindow(admin);
+        QMessageBox::information(this, "Login Successful", "Welcome, " + QString::fromStdString(admin->getFullName()));
+        AdminWindow* adminWindow = new AdminWindow(admin, &BankingSystem::getInstance(), this);
+        this->hide();
+        adminWindow->show();
         return;
     }
-    
-    // Try to authenticate as customer
-    Customer* customer = BankingSystem::getInstance().authenticateCustomer(username, password);
-    if (customer) {
-        ui->statusLabel->setText("Customer login successful!");
-        showCustomerWindow(customer);
-        return;
+
+    // Try customer login if admin login failed
+    Customer* customer = BankingSystem::getInstance().findCustomerByUsername(username);
+    if (customer && customer->checkPassword(password.toStdString())) {
+        QMessageBox::information(this, "Login Successful", "Welcome, " + QString::fromStdString(customer->getFullName()));
+        CustomerWindow* customerWindow = new CustomerWindow(customer, this);
+        this->hide();
+        customerWindow->show();
+    } else {
+        QMessageBox::warning(this, "Login Failed", "Invalid username or password.");
+        ui->statusLabel->setText("Login failed. Please check your credentials.");
+        ui->passwordLineEdit->clear();
+        ui->passwordLineEdit->setFocus();
     }
-    
-    // Login failed
-    QMessageBox::critical(this, "Login Failed", "Invalid username or password.");
-    ui->statusLabel->setText("Login failed. Please check your credentials.");
-    ui->passwordLineEdit->clear();
-    ui->passwordLineEdit->setFocus();
 }
 
 void LoginWindow::onRegisterClicked()
@@ -77,15 +80,15 @@ void LoginWindow::onRegisterClicked()
 void LoginWindow::showCustomerWindow(Customer* customer)
 {
     CustomerWindow* customerWindow = new CustomerWindow(customer, this);
-    customerWindow->show();
     this->hide();
+    customerWindow->show();
 }
 
 void LoginWindow::showAdminWindow(Admin* admin)
 {
     AdminWindow* adminWindow = new AdminWindow(admin, &BankingSystem::getInstance(), this);
-    adminWindow->show();
     this->hide();
+    adminWindow->show();
 }
 
 void LoginWindow::showRegisterDialog()

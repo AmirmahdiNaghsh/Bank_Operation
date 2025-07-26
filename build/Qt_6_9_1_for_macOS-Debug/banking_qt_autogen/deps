@@ -744,6 +744,7 @@ banking_qt_autogen/timestamp: \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Account.h \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Admin.cpp \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Admin.h \
+	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/BankSystem.h \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/CMakeLists.txt \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/CurrentAccount.cpp \
 	/Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/CurrentAccount.h \

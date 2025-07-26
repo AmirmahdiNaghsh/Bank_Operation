@@ -2,7 +2,7 @@
 #include <QApplication>
 
 AdminWindow::AdminWindow(Admin* admin, BankingSystem* bankSystem, QWidget *parent)
-    : QMainWindow(parent), currentAdmin(admin), bankingSystem(bankSystem), selectedCustomer(nullptr)
+    : QMainWindow(parent), currentAdmin(admin), bankSystem(bankSystem), selectedCustomer(nullptr)
 {
     setupUI();
     updateCustomerTable();
@@ -12,7 +12,7 @@ AdminWindow::AdminWindow(Admin* admin, BankingSystem* bankSystem, QWidget *paren
 
 AdminWindow::~AdminWindow()
 {
-    // Don't delete admin or bankingSystem as they're managed elsewhere
+    // Don't delete admin or bankSystem as they're managed elsewhere
 }
 
 void AdminWindow::setupUI()
@@ -172,9 +172,10 @@ void AdminWindow::addCustomer()
     try {
         // Convert QString to int for age (using default age for simplicity)
         int defaultAge = 25; // Default age
-        if (currentAdmin->addCustomer(firstName.toStdString(), lastName.toStdString(),
-                                    nationalId.toStdString(), defaultAge, username.toStdString(),
-                                    password.toStdString())) {
+        
+        // Use BankingSystem directly instead of going through Admin
+        if (bankSystem->registerCustomer(firstName, lastName, nationalId, 
+                                       defaultAge, username, password)) {
             
             QMessageBox::information(this, "Success", "Customer added successfully!");
             
@@ -302,7 +303,7 @@ void AdminWindow::viewAllCustomers()
     dataDisplay->clear();
     dataDisplay->append("=== ALL CUSTOMERS ===\n");
     
-    auto* node = bankingSystem->getAllCustomers().getHead();
+    auto* node = bankSystem->getAllCustomers().getHead();
     int count = 1;
     
     while (node != nullptr) {
@@ -323,7 +324,7 @@ void AdminWindow::viewAllCustomers()
 void AdminWindow::refreshCustomerList()
 {
     customerCombo->clear();
-    auto* node = bankingSystem->getAllCustomers().getHead();
+    auto* node = bankSystem->getAllCustomers().getHead();
     
     while (node != nullptr) {
         Customer* customer = node->getData();
@@ -340,7 +341,7 @@ void AdminWindow::updateCustomerTable()
 {
     customersTable->setRowCount(0);
     
-    auto* node = bankingSystem->getAllCustomers().getHead();
+    auto* node = bankSystem->getAllCustomers().getHead();
     int row = 0;
     
     while (node != nullptr) {
@@ -366,7 +367,7 @@ void AdminWindow::updateAccountsTable()
 {
     accountsTable->setRowCount(0);
     
-    auto* customerNode = bankingSystem->getAllCustomers().getHead();
+    auto* customerNode = bankSystem->getAllCustomers().getHead();
     int row = 0;
     
     while (customerNode != nullptr) {

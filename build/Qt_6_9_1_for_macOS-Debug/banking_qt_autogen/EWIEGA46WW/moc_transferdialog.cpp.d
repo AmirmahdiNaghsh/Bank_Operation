@@ -742,6 +742,8 @@
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/limits.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Account.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Admin.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/BankSystem.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Customer.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/LinkedList.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/User.h \

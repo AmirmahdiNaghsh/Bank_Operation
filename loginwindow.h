@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include "Customer.h"
 #include "Admin.h"
+#include "adminwindow.h"
+#include "customerwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LoginWindow; }

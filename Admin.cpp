@@ -3,19 +3,18 @@
 #include "SavingsAccount.h"  
 #include "CurrentAccount.h"
 #include "LoanAccount.h"     
+#include "bankingsystem.h"
+#include <QString>
+#include <QDebug>
 #include <iostream>
+#include <limits>
 
 using namespace std;
-
-
-LinkedList<Customer*> Admin::allCustomers;
-LinkedList<Admin*> Admin::allAdmins;
-LinkedList<Account*> Admin::allAccounts;
 
 Admin::Admin(const string& fname, const string& lname, const string& natId, 
             int userAge, const string& uname, const string& pass)
     : User(fname, lname, natId, userAge, uname, pass) {
-    addToAdminList(this);
+    BankingSystem::getInstance().getAllAdmins().add(this);
 }
 
 Admin::~Admin() {}
@@ -24,36 +23,48 @@ Admin::~Admin() {}
 bool Admin::addCustomer(const string& fname, const string& lname, const string& natId,
                        int age, const string& uname, const string& pass) {
     
-    if (findCustomerByUsername(uname) != nullptr) {
-        cout << "Error: Username '" << uname << "' already exists." << endl;
+    auto& bankSystem = BankingSystem::getInstance();
+    QString username = QString::fromStdString(uname);
+    
+    if (bankSystem.findCustomerByUsername(username) != nullptr) {
+        qDebug() << "Error: Username already exists:" << username;
         return false;
     }
     
-    Customer* newCustomer = new Customer(fname, lname, natId, age, uname, pass);
-    addToCustomerList(newCustomer);
-    cout << "Customer '" << uname << "' added successfully." << endl;
-    return true;
+    bool success = bankSystem.registerCustomer(
+        QString::fromStdString(fname),
+        QString::fromStdString(lname),
+        QString::fromStdString(natId),
+        age,
+        username,
+        QString::fromStdString(pass)
+    );
+    
+    if (success) {
+        qDebug() << "Customer added successfully:" << username;
+    }
+    
+    return success;
 }
 
 bool Admin::removeCustomer(const string& username) {
-    Customer* customerToRemove = findCustomerByUsername(username);
+    auto& bankSystem = BankingSystem::getInstance();
+    Customer* customerToRemove = bankSystem.findCustomerByUsername(QString::fromStdString(username));
     if (!customerToRemove) {
-        cout << "Error: Customer '" << username << "' not found." << endl;
+        qDebug() << "Error: Customer not found:" << QString::fromStdString(username);
         return false;
     }
-    
     
     auto* currentNode = customerToRemove->getAccounts().getHead();
     while (currentNode != nullptr) {
         Account* account = currentNode->getData();
-        allAccounts.remove([&](Account* acc) {
+        bankSystem.getAllAccounts().remove([&](Account* acc) {
             return acc->getCardNumber() == account->getCardNumber();
         });
         currentNode = currentNode->getNext();
     }
     
-    
-    bool removed = allCustomers.remove([&](Customer* customer) {
+    bool removed = bankSystem.getAllCustomers().remove([&](Customer* customer) {
         return customer->getUsername() == username;
     });
     
@@ -67,17 +78,18 @@ bool Admin::removeCustomer(const string& username) {
 }
 
 Customer* Admin::findCustomer(const string& username) {
-    return findCustomerByUsername(username);
+    return BankingSystem::getInstance().findCustomerByUsername(QString::fromStdString(username));
 }
 
 void Admin::viewAllCustomers() const {
-    cout << "\n=== All Customers ===" << endl;
-    if (allCustomers.getCount() == 0) {
-        cout << "No customers found." << endl;
+    qDebug() << "\n=== All Customers ===";
+    auto& customers = BankingSystem::getInstance().getAllCustomers();
+    if (customers.getCount() == 0) {
+        qDebug() << "No customers found.";
         return;
     }
     
-    auto* currentNode = allCustomers.getHead();
+    auto* currentNode = customers.getHead();
     int customerNum = 1;
     while (currentNode != nullptr) {
         cout << "\n--- Customer " << customerNum++ << " ---" << endl;
@@ -90,7 +102,8 @@ void Admin::viewAllCustomers() const {
 bool Admin::addAdmin(const string& fname, const string& lname, const string& natId,
                     int age, const string& uname, const string& pass) {
     
-    Admin* existingAdmin = allAdmins.find([&](Admin* admin) {
+    auto& admins = BankingSystem::getInstance().getAllAdmins();
+    Admin* existingAdmin = admins.find([&](Admin* admin) {
         return admin->getUsername() == uname;
     });
     
@@ -100,18 +113,20 @@ bool Admin::addAdmin(const string& fname, const string& lname, const string& nat
     }
     
     Admin* newAdmin = new Admin(fname, lname, natId, age, uname, pass);
+    admins.add(newAdmin);
     cout << "Admin '" << uname << "' added successfully." << endl;
     return true;
 }
 
 void Admin::viewAllAdmins() const {
     cout << "\n=== All Admins ===" << endl;
-    if (allAdmins.getCount() == 0) {
+    auto& admins = BankingSystem::getInstance().getAllAdmins();
+    if (admins.getCount() == 0) {
         cout << "No admins found." << endl;
         return;
     }
     
-    auto* currentNode = allAdmins.getHead();
+    auto* currentNode = admins.getHead();
     int adminNum = 1;
     while (currentNode != nullptr) {
         cout << "\n--- Admin " << adminNum++ << " ---" << endl;
@@ -124,9 +139,13 @@ void Admin::viewAllAdmins() const {
 bool Admin::createAccount(const string& customerUsername, const string& accountType,
                          const string& cardNum, const string& accNum, const string& iban,
                          const string& primaryPass, const string& staticSecondPass) {
-    Customer* customer = findCustomerByUsername(customerUsername);
+    qDebug() << "Creating account for customer:" << QString::fromStdString(customerUsername)
+             << "Type:" << QString::fromStdString(accountType);
+             
+    auto& bankSystem = BankingSystem::getInstance();
+    Customer* customer = bankSystem.findCustomerByUsername(QString::fromStdString(customerUsername));
     if (!customer) {
-        cout << "Error: Customer '" << customerUsername << "' not found." << endl;
+        qDebug() << "Error: Customer not found:" << QString::fromStdString(customerUsername);
         return false;
     }
     
@@ -135,29 +154,36 @@ bool Admin::createAccount(const string& customerUsername, const string& accountT
         return false;
     }
     
-    
-    if (findAccountByCardNumber(cardNum)) {
-        cout << "Error: Card number '" << cardNum << "' already exists." << endl;
+    if (bankSystem.findAccountByCardNumber(QString::fromStdString(cardNum))) {
+        qDebug() << "Error: Card number already exists:" << QString::fromStdString(cardNum);
         return false;
     }
     
     Account* newAccount = nullptr;
     
     if (accountType == "deposit") {
-        newAccount = new DepositAccount(cardNum, accNum, iban, primaryPass, staticSecondPass);
+        newAccount = new DepositAccount(cardNum, accNum, iban, primaryPass, staticSecondPass, 0.05); // Default interest rate 5%
     } else if (accountType == "current") {
-        newAccount = new CurrentAccount(cardNum, accNum, iban, primaryPass, staticSecondPass);
+        newAccount = new CurrentAccount(cardNum, accNum, iban, primaryPass, staticSecondPass, 0); // Initial overdraft limit 0
     } else if (accountType == "loan") {
         newAccount = new QarzAccount(cardNum, accNum, iban, primaryPass, staticSecondPass);
     } else {
+        qDebug() << "Error: Invalid account type:" << QString::fromStdString(accountType);
         cout << "Error: Invalid account type. Use 'deposit', 'current', or 'loan'." << endl;
         return false;
     }
     
     if (newAccount) {
+        qDebug() << "Account object created successfully";
+    } else {
+        qDebug() << "Failed to create account object";
+        return false;
+    }
+    
+    if (newAccount) {
         customer->addAccount(newAccount);
-        addToAccountList(newAccount);
-        cout << "Account created successfully for customer '" << customerUsername << "'." << endl;
+        bankSystem.getAllAccounts().add(newAccount);
+        qDebug() << "Account created successfully for customer:" << QString::fromStdString(customerUsername);
         return true;
     }
     
@@ -166,12 +192,13 @@ bool Admin::createAccount(const string& customerUsername, const string& accountT
 
 void Admin::viewAllAccounts() const {
     cout << "\n=== All Accounts ===" << endl;
-    if (allAccounts.getCount() == 0) {
+    auto& accounts = BankingSystem::getInstance().getAllAccounts();
+    if (accounts.getCount() == 0) {
         cout << "No accounts found." << endl;
         return;
     }
     
-    auto* currentNode = allAccounts.getHead();
+    auto* currentNode = accounts.getHead();
     int accountNum = 1;
     while (currentNode != nullptr) {
         cout << "\n--- Account " << accountNum++ << " ---" << endl;
@@ -182,7 +209,7 @@ void Admin::viewAllAccounts() const {
 }
 
 void Admin::viewSpecificAccount(const string& cardNumber) const {
-    Account* account = findAccountByCardNumber(cardNumber);
+    Account* account = BankingSystem::getInstance().findAccountByCardNumber(QString::fromStdString(cardNumber));
     if (account) {
         cout << "\n=== Account Details ===" << endl;
         account->displayAccountInfo();
@@ -196,15 +223,14 @@ void Admin::viewSpecificAccount(const string& cardNumber) const {
 bool Admin::editUserInfo(const string& username, const string& newFirstName,
                         const string& newLastName, int newAge) {
     
-    Customer* customer = findCustomerByUsername(username);
+    Customer* customer = BankingSystem::getInstance().findCustomerByUsername(QString::fromStdString(username));
     if (customer) {
         customer->changeInfo(newFirstName, newLastName, newAge);
         cout << "Customer information updated successfully." << endl;
         return true;
     }
     
-    
-    Admin* admin = allAdmins.find([&](Admin* adm) {
+    Admin* admin = BankingSystem::getInstance().getAllAdmins().find([&](Admin* adm) {
         return adm->getUsername() == username;
     });
     
@@ -220,37 +246,17 @@ bool Admin::editUserInfo(const string& username, const string& newFirstName,
 
 void Admin::viewUsersByType() const {
     cout << "\n=== Users by Type ===" << endl;
-    cout << "\n--- Customers (" << allCustomers.getCount() << ") ---" << endl;
+    auto& customers = BankingSystem::getInstance().getAllCustomers();
+    auto& admins = BankingSystem::getInstance().getAllAdmins();
+    cout << "\n--- Customers (" << customers.getCount() << ") ---" << endl;
     viewAllCustomers();
     
-    cout << "\n--- Admins (" << allAdmins.getCount() << ") ---" << endl;
+    cout << "\n--- Admins (" << admins.getCount() << ") ---" << endl;
     viewAllAdmins();
 }
 
 
-void Admin::addToCustomerList(Customer* customer) {
-    allCustomers.add(customer);
-}
-
-void Admin::addToAdminList(Admin* admin) {
-    allAdmins.add(admin);
-}
-
-void Admin::addToAccountList(Account* account) {
-    allAccounts.add(account);
-}
-
-Customer* Admin::findCustomerByUsername(const string& username) {
-    return allCustomers.find([&](Customer* customer) {
-        return customer->getUsername() == username;
-    });
-}
-
-Account* Admin::findAccountByCardNumber(const string& cardNumber) {
-    return allAccounts.find([&](Account* account) {
-        return account->getCardNumber() == cardNumber;
-    });
-}
+// All list management functions have been moved to BankSystem class
 
 
 bool Admin::login(const string& uname, const string& pass) {
@@ -262,17 +268,93 @@ bool Admin::login(const string& uname, const string& pass) {
 }
 
 void Admin::showMainMenu() {
-    cout << "\n=== Admin Menu ===" << endl;
-    cout << "1. View All Customers" << endl;
-    cout << "2. View All Accounts" << endl;
-    cout << "3. Add Customer" << endl;
-    cout << "4. Remove Customer" << endl;
-    cout << "5. Create Account" << endl;
-    cout << "6. View Specific Account" << endl;
-    cout << "7. View All Admins" << endl;
-    cout << "8. Edit User Information" << endl;
-    cout << "9. Logout" << endl;
-    cout << "===================" << endl;
+    while (true) {
+        cout << "\n=== Admin Menu ===" << endl;
+        cout << "1. View All Customers" << endl;
+        cout << "2. View All Accounts" << endl;
+        cout << "3. Add Customer" << endl;
+        cout << "4. Remove Customer" << endl;
+        cout << "5. Create Account" << endl;
+        cout << "6. View Specific Account" << endl;
+        cout << "7. View All Admins" << endl;
+        cout << "8. Edit User Information" << endl;
+        cout << "9. Logout" << endl;
+        cout << "Choice: ";
+
+        int choice;
+        if (!(cin >> choice)) {
+            cin.clear(); // clear error state
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard invalid input
+            cout << "Invalid input. Please enter a number." << endl;
+            continue;
+        }
+
+        string fname, lname, natId, uname, pass;
+        int age;
+
+        switch (choice) {
+            case 1:
+                viewAllCustomers();
+                break;
+            case 2:
+                viewAllAccounts();
+                break;
+            case 3:
+                cout << "Enter customer details:" << endl;
+                cout << "First Name: "; cin >> fname;
+                cout << "Last Name: "; cin >> lname;
+                cout << "National ID: "; cin >> natId;
+                cout << "Age: "; cin >> age;
+                cout << "Username: "; cin >> uname;
+                cout << "Password: "; cin >> pass;
+                addCustomer(fname, lname, natId, age, uname, pass);
+                break;
+            case 4:
+                cout << "Enter username to remove: ";
+                cin >> uname;
+                removeCustomer(uname);
+                break;
+            case 5:
+                {
+                    string customerUsername, accountType, cardNum, accNum, iban, primaryPass, staticSecondPass;
+                    cout << "Enter customer username: "; cin >> customerUsername;
+                    cout << "Enter account type (deposit/current/loan): "; cin >> accountType;
+                    cout << "Enter card number: "; cin >> cardNum;
+                    cout << "Enter account number: "; cin >> accNum;
+                    cout << "Enter IBAN: "; cin >> iban;
+                    cout << "Enter primary password: "; cin >> primaryPass;
+                    cout << "Enter static second password: "; cin >> staticSecondPass;
+                    createAccount(customerUsername, accountType, cardNum, accNum, iban, primaryPass, staticSecondPass);
+                }
+                break;
+            case 6:
+                {
+                    string cardNumber;
+                    cout << "Enter card number: ";
+                    cin >> cardNumber;
+                    viewSpecificAccount(cardNumber);
+                }
+                break;
+            case 7:
+                viewAllAdmins();
+                break;
+            case 8:
+                {
+                    string username, newFirstName, newLastName;
+                    int newAge;
+                    cout << "Enter username to edit: "; cin >> username;
+                    cout << "Enter new first name: "; cin >> newFirstName;
+                    cout << "Enter new last name: "; cin >> newLastName;
+                    cout << "Enter new age: "; cin >> newAge;
+                    editUserInfo(username, newFirstName, newLastName, newAge);
+                }
+                break;
+            case 9:
+                return;
+            default:
+                cout << "Invalid choice. Please try again." << endl;
+        }
+    }
 }
 
 void Admin::displayInfo() const {

@@ -25,7 +25,7 @@ class AdminWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    AdminWindow(Admin* admin, BankingSystem* bankSystem, QWidget *parent = nullptr);
+    explicit AdminWindow(Admin* admin, BankingSystem* bankSystem = nullptr, QWidget *parent = nullptr);
     ~AdminWindow();
 
 private slots:
@@ -47,7 +47,7 @@ private:
     void updateAccountsTable();
     
     Admin* currentAdmin;
-    BankingSystem* bankingSystem;
+    BankingSystem* bankSystem;
     
     // UI components
     QTabWidget* tabWidget;

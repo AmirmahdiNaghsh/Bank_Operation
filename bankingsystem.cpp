@@ -54,25 +54,49 @@ Customer* BankingSystem::authenticateCustomer(const QString& username, const QSt
 
 Admin* BankingSystem::authenticateAdmin(const QString& username, const QString& password)
 {
-    return allAdmins.find([&](Admin* admin) {
-        return admin->getUsername() == username.toStdString() && 
-               admin->checkPassword(password.toStdString());
+    qDebug() << "Trying to authenticate admin. Username:" << username;
+    qDebug() << "Number of admins in system:" << allAdmins.getCount();
+    
+    Admin* foundAdmin = allAdmins.find([&](Admin* admin) {
+        bool usernameMatch = admin->getUsername() == username.toStdString();
+        bool passwordMatch = admin->checkPassword(password.toStdString());
+        qDebug() << "Checking admin:" << QString::fromStdString(admin->getUsername());
+        qDebug() << "Username match:" << usernameMatch << "Password match:" << passwordMatch;
+        return usernameMatch && passwordMatch;
     });
+    
+    qDebug() << "Authentication result:" << (foundAdmin ? "Success" : "Failed");
+    return foundAdmin;
 }
 
 bool BankingSystem::registerCustomer(const QString& firstName, const QString& lastName, 
                                     const QString& nationalId, int age, 
                                     const QString& username, const QString& password)
 {
+    qDebug() << "Attempting to register new customer:" << username;
+    qDebug() << "Current customer count:" << allCustomers.getCount();
+    
     // Check if username already exists
     if (findCustomerByUsername(username) != nullptr) {
+        qDebug() << "Registration failed: Username already exists";
         return false;
     }
     
     Customer* newCustomer = new Customer(firstName.toStdString(), lastName.toStdString(),
                                        nationalId.toStdString(), age,
                                        username.toStdString(), password.toStdString());
+    
     allCustomers.add(newCustomer);
+    
+    qDebug() << "Customer added. New count:" << allCustomers.getCount();
+    qDebug() << "Verifying customer was added...";
+    Customer* verifyCustomer = findCustomerByUsername(username);
+    if (verifyCustomer != nullptr) {
+        qDebug() << "Customer verified in system";
+    } else {
+        qDebug() << "WARNING: Customer not found after adding!";
+    }
+    
     return true;
 }
 

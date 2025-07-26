@@ -741,10 +741,15 @@
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/__stdarg_va_list.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/limits.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdarg.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Account.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Admin.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/Customer.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/LinkedList.h \
   /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/User.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/adminwindow.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/bankingsystem.h \
+  /Users/amirmahdinaghsh/Documents/GitHub/Bank_Operation/customerwindow.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/QObject \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q17memory.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q20functional.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q20iterator.h \
@@ -752,6 +757,7 @@
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q20type_traits.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q20utility.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/q23utility.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qabstractitemmodel.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qalgorithms.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qanystringview.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qarraydata.h \
@@ -792,12 +798,15 @@
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qglobalstatic.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qhash.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qhashfunctions.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qiodevice.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qiodevicebase.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qitemselectionmodel.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qiterable.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qiterator.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qlatin1stringview.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qline.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qlist.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qlocale.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qlogging.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qmalloc.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qmap.h \
@@ -818,6 +827,7 @@
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qprocessordetection.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qrect.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qrefcount.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qregularexpression.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qscopedpointer.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qscopeguard.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qset.h \
@@ -864,6 +874,7 @@
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qtversionchecks.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qtypeinfo.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qtypes.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qurl.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qutf8stringview.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qvariant.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtCore.framework/Versions/A/Headers/qvarlengtharray.h \
@@ -884,25 +895,75 @@
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qkeysequence.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpaintdevice.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpalette.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpen.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpicture.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpixelformat.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpixmap.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qpolygon.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qregion.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qrgb.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qrgba64.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtextcursor.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtextdocument.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtextformat.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtextoption.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtgui-config.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtguiexports.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtguiglobal.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qtransform.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qvalidator.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtGui.framework/Versions/A/Headers/qwindowdefs.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QComboBox \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QGridLayout \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QGroupBox \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QHBoxLayout \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QHeaderView \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QInputDialog \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QLabel \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QLineEdit \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QListWidgetItem \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QMainWindow \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QMessageBox \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QPushButton \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QTabWidget \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QTableWidget \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QTableWidgetItem \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QTextEdit \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/QVBoxLayout \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractbutton.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractitemdelegate.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractitemview.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractscrollarea.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractslider.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qabstractspinbox.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qboxlayout.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qcombobox.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qdialog.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qdialogbuttonbox.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qframe.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qgridlayout.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qgroupbox.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qheaderview.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qinputdialog.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlabel.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlayout.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlayoutitem.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlineedit.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlistview.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qlistwidget.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qmainwindow.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qmessagebox.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qpushbutton.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qrubberband.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qsizepolicy.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qslider.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qstyle.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qstyleoption.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtabbar.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtableview.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtablewidget.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtabwidget.h \
+  /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtextedit.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtwidgets-config.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtwidgetsexports.h \
   /Users/amirmahdinaghsh/Qt/6.9.1/macos/lib/QtWidgets.framework/Versions/A/Headers/qtwidgetsglobal.h \
